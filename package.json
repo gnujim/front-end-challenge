@@ -18,9 +18,6 @@
     "eject": "react-scripts eject",
     "now-build": "yarn build"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
