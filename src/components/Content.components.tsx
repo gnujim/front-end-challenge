@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Local imports
-import { AccountInfo } from './AccountInfo.components';
+import { AccountBalance } from './AccountBalance.components';
 import { AccountSelector } from './AccountSelector.components';
 import { CategorySelector } from './CategorySelector.components';
 import { TransactionList } from './TransactionList.components';
@@ -29,7 +29,7 @@ export const Content = () => {
       <AccountSelector />
       <FlexRow>
         <FlexColumn>
-          <AccountInfo />
+          <AccountBalance />
           <CategorySelector />
         </FlexColumn>
         <TransactionList />

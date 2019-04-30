@@ -8,7 +8,7 @@
       "config": { "distDir": "build", "useBuildUtils": "@now/build-utils@canary" }
     }
   ],
-  "alias": ["https://front-end-challenge.mijung.dev"],
+  "alias": ["front-end-challenge.mijung.dev"],
   "routes": [
     { "src": "^/static/(.*)", "dest": "/static/$1" },
     { "src": "^/favicon.ico", "dest": "/favicon.ico" },

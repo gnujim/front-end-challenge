@@ -1,6 +1,7 @@
-// Third-part imports
+// Third-party imports
 import React from 'react';
 import styled from 'styled-components';
+import 'antd/dist/antd.css';
 
 // Local imports
 import { GlobalStyles } from './styles';

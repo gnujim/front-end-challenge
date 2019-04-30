@@ -10,13 +10,10 @@ const InfoContainer = styled.div`
 
 const Balance = styled.div``;
 
-const AccountNo = styled.div``;
-
-export const AccountInfo = () => {
+export const AccountBalance = () => {
   return (
     <InfoContainer>
       <Balance>$160.84</Balance>
-      <AccountNo>12345667</AccountNo>
     </InfoContainer>
   );
 };

@@ -2,7 +2,7 @@
  * Module for all reusable components
  */
 
-export * from './AccountInfo.components';
+export * from './AccountBalance.components';
 export * from './AccountSelector.components';
 export * from './CategorySelector.components';
 export * from './Content.components';

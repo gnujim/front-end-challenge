@@ -33,7 +33,7 @@ interface Account {
   balanceUpdated: string;
 }
 
-interface AccountsResponse {
+export interface AccountsResponse {
   accounts: Account[];
 }
 
@@ -43,7 +43,7 @@ export const getAccounts = async () => {
   return data;
 };
 
-interface CategoriesResponse {
+export interface CategoriesResponse {
   categories: string[];
 }
 
