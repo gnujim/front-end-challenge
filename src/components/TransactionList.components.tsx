@@ -16,10 +16,13 @@ export const TransactionList = () => {
   const [data, setData] = useState<TransactionsResponse>();
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getTransactions();
-      setData(result);
-      setIsLoading(false);
-      // add error handling
+      try {
+        const result = await getTransactions();
+        setData(result);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchData();
   }, []);
