@@ -1,9 +1,10 @@
 // Third-part imports
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { GlobalStyles } from './styles';
 
 // Local imports
+import { GlobalStyles } from './styles';
+import { getTransactions, TransactionsResponse } from './utilities';
 
 export const AppContainer = styled.div`
   background-color: #282c34;
@@ -21,7 +22,35 @@ export const App = () => {
     <AppContainer>
       <GlobalStyles />
       <div>Data</div>
-      <p>data goes here</p>
+      <TransactionsList />
     </AppContainer>
+  );
+};
+
+const TransactionsList = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState<TransactionsResponse>();
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getTransactions();
+      setData(result);
+      setIsLoading(false);
+      // add error handling
+    };
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return <p>...loading</p>;
+  }
+
+  return (
+    <>
+      {data &&
+        data.transactions.map((transaction) => {
+          const { transactionId, description } = transaction;
+          return <div key={transactionId}>{description}</div>;
+        })}
+    </>
   );
 };
