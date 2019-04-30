@@ -18,7 +18,7 @@ export interface TransactionsResponse {
 }
 
 export const getTransactions = async () => {
-  const response = await fetch(`http://demo1124891.mockable.io/transactions`);
+  const response = await fetch(`https://demo1124891.mockable.io/transactions`);
   const data = (await response.json()) as TransactionsResponse;
   return data;
 };
