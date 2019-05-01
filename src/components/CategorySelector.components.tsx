@@ -6,6 +6,16 @@ import styled from 'styled-components';
 
 const CategoriesContainer = styled.div``;
 
+const CategoriesTitle = styled.div`
+  font-size: 18px;
+  font-weight: 700;
+  border-bottom: 1px solid black;
+`;
+
 export const CategorySelector = () => {
-  return <CategoriesContainer>Categories</CategoriesContainer>;
+  return (
+    <CategoriesContainer>
+      <CategoriesTitle>CATEGORIES</CategoriesTitle>
+    </CategoriesContainer>
+  );
 };

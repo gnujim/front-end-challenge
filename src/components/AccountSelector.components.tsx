@@ -8,13 +8,11 @@ import { getAccounts, AccountsResponse } from '../utilities';
 
 const Option = Select.Option;
 
-const AccountContainer = styled.div``;
-
-const AccountOption = styled(Option)`
-  .ant-select-dropdown-menu-item {
-    color: green;
-  }
+const AccountContainer = styled.div`
+  margin: 25px 0;
 `;
+
+const AccountOption = styled(Option)``;
 
 export const AccountSelector = () => {
   const [isLoading, setIsLoading] = useState(true);
