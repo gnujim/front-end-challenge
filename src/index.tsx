@@ -5,8 +5,18 @@ import ReactDOM from 'react-dom';
 // Local imports
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
+import { AppStore } from './utilities/Store.utils';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const store = new AppStore();
+export const StoreContext = React.createContext(store);
+
+ReactDOM.render(
+  <StoreContext.Provider value={store}>
+    <App />
+  </StoreContext.Provider>,
+  document.getElementById('root'),
+  () => store.init(),
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
