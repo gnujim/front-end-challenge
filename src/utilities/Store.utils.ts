@@ -9,6 +9,8 @@ import {
   getTransactions,
   Transaction,
   TransactionsResponse,
+  CategoriesResponse,
+  getCategories,
 } from './Api.utils';
 
 export class AppStore {
@@ -20,17 +22,19 @@ export class AppStore {
   apiData: {
     transactions?: TransactionsResponse;
     accounts?: AccountsResponse;
+    categories?: CategoriesResponse;
   } = {};
   // all transactions in the app
   allTransactions: Transaction[] = [];
   // all accounts in the app
   allAccounts: Account[] = [];
+  allCategories: string[] = [];
   // current selected accountId
   currentAccountId = 'all';
 
   async init() {
     try {
-      await Promise.all([this.fetchTransactions(), this.fetchAccounts()]);
+      await Promise.all([this.fetchTransactions(), this.fetchAccounts(), this.fetchCategories()]);
     } catch (error) {
       this.apiError = error.message;
     }
@@ -47,6 +51,12 @@ export class AppStore {
     const data = await getAccounts();
     this.apiData.accounts = data;
     this.allAccounts = data.accounts;
+  }
+
+  async fetchCategories() {
+    const data = await getCategories();
+    this.apiData.categories = data;
+    this.allCategories = data.categories;
   }
 
   setCurrentAccount(accountId: string) {
@@ -86,10 +96,12 @@ decorate(AppStore, {
   apiData: observable,
   allTransactions: observable,
   allAccounts: observable,
+  allCategories: observable,
   currentAccountId: observable,
 
   fetchTransactions: action.bound,
   fetchAccounts: action.bound,
+  fetchCategories: action.bound,
   setCurrentAccount: action.bound,
 
   currentTransactions: computed,

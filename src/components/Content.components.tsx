@@ -15,6 +15,7 @@ const ContentContainer = styled.div`
 const FlexColumn = styled.div`
   display: flex;
   flex-direction: column;
+  width: 20%;
 `;
 
 const FlexRow = styled.div`
