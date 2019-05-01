@@ -49,6 +49,10 @@ export class AppStore {
     this.allAccounts = data.accounts;
   }
 
+  setCurrentAccount(accountId: string) {
+    this.currentAccountId = accountId;
+  }
+
   // computed value of all transactions for currently selected account
   get currentTransactions() {
     // if 'all', return all transactions unfiltered
@@ -59,6 +63,20 @@ export class AppStore {
     return this.allTransactions.filter((transaction) => {
       return transaction.accountId === this.currentAccountId;
     });
+  }
+
+  get currentBalance() {
+    // if 'all', return total balances of all accounts
+    if (this.currentAccountId === 'all') {
+      return this.allAccounts.reduce((acc, cur) => {
+        return acc + cur.balance;
+      }, 0);
+    }
+    // or return current account's balance
+    const currAccount = this.allAccounts.find((account) => {
+      return account.accountId === this.currentAccountId;
+    });
+    return currAccount ? currAccount.balance : 0;
   }
 }
 
@@ -72,6 +90,8 @@ decorate(AppStore, {
 
   fetchTransactions: action.bound,
   fetchAccounts: action.bound,
+  setCurrentAccount: action.bound,
 
   currentTransactions: computed,
+  currentBalance: computed,
 });

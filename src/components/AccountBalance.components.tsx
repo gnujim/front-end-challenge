@@ -1,8 +1,10 @@
 // Third-party imports
-import React from 'react';
+import { observer } from 'mobx-react-lite';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // Local imports
+import { StoreContext } from '..';
 
 const InfoContainer = styled.div``;
 
@@ -16,11 +18,17 @@ const Balance = styled.div`
   font-size: 60px;
 `;
 
-export const AccountBalance = () => {
+export const AccountBalance = observer(() => {
+  const { loading, currentBalance } = useContext(StoreContext);
+
+  if (loading) {
+    return <p>...loading</p>;
+  }
+
   return (
     <InfoContainer>
       <BalanceTitle>BALANCE</BalanceTitle>
-      <Balance>$160.84</Balance>
+      <Balance>${currentBalance}</Balance>
     </InfoContainer>
   );
-};
+});

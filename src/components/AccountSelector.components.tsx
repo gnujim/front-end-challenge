@@ -16,10 +16,11 @@ const AccountContainer = styled.div`
 const AccountOption = styled(Option)``;
 
 export const AccountSelector = observer(() => {
-  const { loading, allAccounts } = useContext(StoreContext);
+  const { loading, allAccounts, setCurrentAccount } = useContext(StoreContext);
 
   const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
+    console.log(value);
+    setCurrentAccount(value);
   };
 
   if (loading) {
@@ -29,18 +30,16 @@ export const AccountSelector = observer(() => {
   return (
     <AccountContainer>
       <Select
-        defaultValue="all"
+        defaultValue="ALL ACCOUNTS"
         onChange={handleChange}
         style={{ width: '100%', color: 'black', fontSize: '30px' }}
         dropdownStyle={{ backgroundColor: '#fefefe' }}>
-        <AccountOption key="all" value="all">
-          ALL ACCOUNTS
-        </AccountOption>
+        <AccountOption value="all">ALL ACCOUNTS</AccountOption>
         {allAccounts.map((account) => {
-          const { accountId, accountName } = account;
+          const { accountId, accountName, accountNumber } = account;
           return (
-            <AccountOption key={accountId} value={accountName}>
-              {accountName}
+            <AccountOption key={accountId} value={accountId}>
+              {accountName} - {accountNumber}
             </AccountOption>
           );
         })}
