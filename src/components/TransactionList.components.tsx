@@ -1,9 +1,10 @@
 // Third-part imports
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
+import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
 
 // Local imports
-import { getTransactions, TransactionsResponse } from '../utilities';
+import { StoreContext } from '..';
 
 const ListContainer = styled.div`
   height: 60vh;
@@ -45,23 +46,10 @@ const ListItemTextWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const TransactionList = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<TransactionsResponse>();
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getTransactions();
-        setData(result);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
+export const TransactionList = observer(() => {
+  const { loading, currentTransactions } = useContext(StoreContext);
 
-  if (isLoading) {
+  if (loading) {
     return <p>...loading</p>;
   }
 
@@ -74,29 +62,28 @@ export const TransactionList = () => {
         <ListTitle>BALANCE</ListTitle>
       </ListHeader>
       <ListContent>
-        {data &&
-          data.transactions.map((transaction) => {
-            const {
-              transactionId,
-              transactionDate,
-              description,
-              category,
-              amount,
-              runningBalance,
-            } = transaction;
-            return (
-              <ListItem key={transactionId}>
-                <ListItemText>{transactionDate}</ListItemText>
-                <ListItemTextWrapper>
-                  <ListItemText>{description}</ListItemText>
-                  <ListItemText>{category}</ListItemText>
-                </ListItemTextWrapper>
-                <ListItemText>{amount}</ListItemText>
-                <ListItemText>{runningBalance}</ListItemText>
-              </ListItem>
-            );
-          })}
+        {currentTransactions.map((transaction) => {
+          const {
+            transactionId,
+            transactionDate,
+            description,
+            category,
+            amount,
+            runningBalance,
+          } = transaction;
+          return (
+            <ListItem key={transactionId}>
+              <ListItemText>{transactionDate}</ListItemText>
+              <ListItemTextWrapper>
+                <ListItemText>{description}</ListItemText>
+                <ListItemText>{category}</ListItemText>
+              </ListItemTextWrapper>
+              <ListItemText>{amount}</ListItemText>
+              <ListItemText>{runningBalance}</ListItemText>
+            </ListItem>
+          );
+        })}
       </ListContent>
     </ListContainer>
   );
-};
+});
