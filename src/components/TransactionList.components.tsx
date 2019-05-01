@@ -1,6 +1,6 @@
 // Third-part imports
-import React, { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // Local imports

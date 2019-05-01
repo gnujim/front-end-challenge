@@ -1,8 +1,15 @@
 // Third-party imports
-import { decorate, observable, action, computed } from 'mobx';
+import { action, computed, decorate, observable } from 'mobx';
 
 // Local imports
-import { TransactionsResponse, Transaction, getTransactions } from './Api.utils';
+import {
+  Account,
+  AccountsResponse,
+  getAccounts,
+  getTransactions,
+  Transaction,
+  TransactionsResponse,
+} from './Api.utils';
 
 export class AppStore {
   // loading state of application
@@ -12,15 +19,18 @@ export class AppStore {
   // raw data fetched from api
   apiData: {
     transactions?: TransactionsResponse;
+    accounts?: AccountsResponse;
   } = {};
   // all transactions in the app
   allTransactions: Transaction[] = [];
+  // all accounts in the app
+  allAccounts: Account[] = [];
   // current selected accountId
   currentAccountId = 'all';
 
   async init() {
     try {
-      await Promise.all([this.fetchTransactions()]);
+      await Promise.all([this.fetchTransactions(), this.fetchAccounts()]);
     } catch (error) {
       this.apiError = error.message;
     }
@@ -31,6 +41,12 @@ export class AppStore {
     const data = await getTransactions();
     this.apiData.transactions = data;
     this.allTransactions = data.transactions;
+  }
+
+  async fetchAccounts() {
+    const data = await getAccounts();
+    this.apiData.accounts = data;
+    this.allAccounts = data.accounts;
   }
 
   // computed value of all transactions for currently selected account
@@ -51,9 +67,11 @@ decorate(AppStore, {
   apiError: observable,
   apiData: observable,
   allTransactions: observable,
+  allAccounts: observable,
   currentAccountId: observable,
 
   fetchTransactions: action.bound,
+  fetchAccounts: action.bound,
 
   currentTransactions: computed,
 });

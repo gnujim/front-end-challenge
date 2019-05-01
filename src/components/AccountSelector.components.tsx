@@ -1,10 +1,11 @@
 // Third-party imports
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import { Select } from 'antd';
+import { observer } from 'mobx-react-lite';
+import React, { useContext } from 'react';
+import styled from 'styled-components';
 
 // Local imports
-import { getAccounts, AccountsResponse } from '../utilities';
+import { StoreContext } from '..';
 
 const Option = Select.Option;
 
@@ -14,28 +15,14 @@ const AccountContainer = styled.div`
 
 const AccountOption = styled(Option)``;
 
-export const AccountSelector = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<AccountsResponse>();
+export const AccountSelector = observer(() => {
+  const { loading, allAccounts } = useContext(StoreContext);
 
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getAccounts();
-        setData(result);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  if (isLoading) {
+  if (loading) {
     return <p>...loading</p>;
   }
 
@@ -46,17 +33,18 @@ export const AccountSelector = () => {
         onChange={handleChange}
         style={{ width: '100%', color: 'black', fontSize: '30px' }}
         dropdownStyle={{ backgroundColor: '#fefefe' }}>
-        <AccountOption value="all">ALL ACCOUNTS</AccountOption>
-        {data &&
-          data.accounts.map((account) => {
-            const { accountId, accountName } = account;
-            return (
-              <AccountOption key={accountId} value={accountName}>
-                {accountName}
-              </AccountOption>
-            );
-          })}
+        <AccountOption key="all" value="all">
+          ALL ACCOUNTS
+        </AccountOption>
+        {allAccounts.map((account) => {
+          const { accountId, accountName } = account;
+          return (
+            <AccountOption key={accountId} value={accountName}>
+              {accountName}
+            </AccountOption>
+          );
+        })}
       </Select>
     </AccountContainer>
   );
-};
+});
