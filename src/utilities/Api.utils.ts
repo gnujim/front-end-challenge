@@ -1,4 +1,4 @@
-interface Transaction {
+export interface Transaction {
   accountId: string;
   transactionDate: string;
   description: string;
@@ -23,7 +23,7 @@ export const getTransactions = async () => {
   return data;
 };
 
-interface Account {
+export interface Account {
   accountId: string;
   institutionName: string;
   accountName: string;
