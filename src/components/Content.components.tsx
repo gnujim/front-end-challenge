@@ -10,31 +10,34 @@ import { TransactionList } from './TransactionList.components';
 
 const ContentContainer = styled.div`
   margin: 30px 10%;
+  max-height: 100%;
+  background-color: #fdfeff;
+  padding: 20px;
+  box-shadow: #5c88e2 -14px 14px;
 `;
 
-const FlexColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 20%;
+const Vertical = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 2fr;
 `;
 
-const FlexRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+const Horizontal = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-column-gap: 20px;
 `;
 
 export const Content = () => {
   return (
     <ContentContainer>
       <AccountSelector />
-      <FlexRow>
-        <FlexColumn>
+      <Horizontal>
+        <Vertical>
           <AccountBalance />
           <CategorySelector />
-        </FlexColumn>
+        </Vertical>
         <TransactionList />
-      </FlexRow>
+      </Horizontal>
     </ContentContainer>
   );
 };

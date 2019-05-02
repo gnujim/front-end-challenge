@@ -4,15 +4,10 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // Local imports
+import { TitleBorder } from './Text.components';
 import { formatCurrency, StoreContext } from '../utilities';
 
-const InfoContainer = styled.div``;
-
-const BalanceTitle = styled.div`
-  font-size: 18px;
-  font-weight: 700;
-  border-bottom: 1px solid black;
-`;
+const BalanceContainer = styled.div``;
 
 const Balance = styled.div`
   font-size: 60px;
@@ -21,14 +16,10 @@ const Balance = styled.div`
 export const AccountBalance = observer(() => {
   const { loading, currentBalance } = useContext(StoreContext);
 
-  if (loading) {
-    return <p>...loading</p>;
-  }
-
   return (
-    <InfoContainer>
-      <BalanceTitle>BALANCE</BalanceTitle>
-      <Balance>{formatCurrency(currentBalance)}</Balance>
-    </InfoContainer>
+    <BalanceContainer>
+      <TitleBorder>BALANCE</TitleBorder>
+      {loading ? <p>...loading</p> : <Balance>{formatCurrency(currentBalance)}</Balance>}
+    </BalanceContainer>
   );
 });

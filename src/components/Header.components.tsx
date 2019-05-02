@@ -5,20 +5,20 @@ import styled from 'styled-components';
 // Local imports
 
 const HeaderContainer = styled.div`
-  width: 100%;
-  height: 80px;
-  background-color: #5ea3ec;
-  /* background-color: #4fa675; */
+  align-items: flex-end;
   display: flex;
-  align-items: center;
+  height: 80px;
+  padding: 0 50px;
+  width: 100%;
 `;
 
 const InstitutionName = styled.div`
-  font-family: 'Heebo', serif;
-  letter-spacing: 0;
-  font-size: 34px;
-  font-weight: 800;
   color: white;
+  font-family: 'Heebo', serif;
+  font-size: calc(13px + 3vmin);
+
+  font-weight: 800;
+  letter-spacing: 0;
 `;
 
 export const Header = () => {

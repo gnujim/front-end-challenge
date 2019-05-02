@@ -5,40 +5,39 @@ import styled from 'styled-components';
 
 // Local imports
 import { StoreContext, formatCurrency, formatCategory } from '../utilities';
+import { Title } from './Text.components';
 
 const ListContainer = styled.div`
-  height: 60vh;
-  width: 75%;
+  height: 70vh;
 `;
 
 const ListHeader = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr 1fr;
+  padding-right: 15px;
   border-bottom: 1px solid black;
-`;
-
-const ListTitle = styled.div`
-  font-size: 18px;
-  font-weight: 700;
 `;
 
 const ListContent = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  height: inherit;
+  height: 95%;
 `;
 
 const ListItem = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr 1fr;
-  /* height: 40px; */
   border-bottom: 1px solid black;
 `;
 
 const ListItemText = styled.div`
   font-size: 22px;
   overflow: wrap;
+`;
+
+const ListItemCategory = styled.div`
+  font-size: 18px;
 `;
 
 const ListItemTextWrapper = styled.div`
@@ -49,40 +48,40 @@ const ListItemTextWrapper = styled.div`
 export const TransactionList = observer(() => {
   const { loading, currentTransactions, toggleSortOrder } = useContext(StoreContext);
 
-  if (loading) {
-    return <p>...loading</p>;
-  }
-
   return (
     <ListContainer>
       <ListHeader>
-        <ListTitle onClick={() => toggleSortOrder()}>DATE</ListTitle>
-        <ListTitle>TRANSACTION</ListTitle>
-        <ListTitle>AMOUNT</ListTitle>
-        <ListTitle>BALANCE</ListTitle>
+        <Title onClick={() => toggleSortOrder()}>DATE</Title>
+        <Title>TRANSACTION</Title>
+        <Title>AMOUNT</Title>
+        <Title>BALANCE</Title>
       </ListHeader>
       <ListContent>
-        {currentTransactions.map((transaction) => {
-          const {
-            transactionId,
-            transactionDate,
-            description,
-            category,
-            amount,
-            runningBalance,
-          } = transaction;
-          return (
-            <ListItem key={transactionId}>
-              <ListItemText>{transactionDate}</ListItemText>
-              <ListItemTextWrapper>
-                <ListItemText>{description}</ListItemText>
-                <ListItemText>{formatCategory(category)}</ListItemText>
-              </ListItemTextWrapper>
-              <ListItemText>{formatCurrency(amount)}</ListItemText>
-              <ListItemText>{formatCurrency(runningBalance)}</ListItemText>
-            </ListItem>
-          );
-        })}
+        {loading ? (
+          <p>...loading</p>
+        ) : (
+          currentTransactions.map((transaction) => {
+            const {
+              transactionId,
+              transactionDate,
+              description,
+              category,
+              amount,
+              runningBalance,
+            } = transaction;
+            return (
+              <ListItem key={transactionId}>
+                <ListItemText>{transactionDate}</ListItemText>
+                <ListItemTextWrapper>
+                  <ListItemText>{description}</ListItemText>
+                  <ListItemCategory>{formatCategory(category)}</ListItemCategory>
+                </ListItemTextWrapper>
+                <ListItemText>{formatCurrency(amount)}</ListItemText>
+                <ListItemText>{formatCurrency(runningBalance)}</ListItemText>
+              </ListItem>
+            );
+          })
+        )}
       </ListContent>
     </ListContainer>
   );

@@ -7,10 +7,11 @@ import styled from 'styled-components';
 // Local imports
 import { StoreContext } from '../utilities';
 
+// Get Option out of antd
 const Option = Select.Option;
 
 const AccountContainer = styled.div`
-  margin: 25px 0;
+  margin-bottom: 25px;
 `;
 
 const AccountOption = styled(Option)``;
