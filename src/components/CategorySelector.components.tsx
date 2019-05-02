@@ -22,14 +22,14 @@ const CategoriesTitle = styled.div`
 const CategoryOption = styled(Option)``;
 
 export const CategorySelector = observer(() => {
-  const { loading, allCategories } = useContext(StoreContext);
+  const { loading, currentCategories, setSelectedCategories } = useContext(StoreContext);
 
   if (loading) {
     return <p>...loading</p>;
   }
 
-  const handleChange = (value: string) => {
-    console.log(value);
+  const handleChange = (categories: []) => {
+    setSelectedCategories(categories);
   };
 
   return (
@@ -41,8 +41,12 @@ export const CategorySelector = observer(() => {
         allowClear={true}
         placeholder="Please Select"
         onChange={handleChange}>
-        {allCategories.map((cat) => {
-          return <CategoryOption key={cat}>{cat}</CategoryOption>;
+        {currentCategories.map((cat) => {
+          return (
+            <CategoryOption key={cat.category} disabled={!cat.count}>
+              {cat.category} ({cat.count})
+            </CategoryOption>
+          );
         })}
       </Select>
     </CategoriesContainer>

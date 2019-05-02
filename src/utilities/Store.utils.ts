@@ -31,6 +31,7 @@ export class AppStore {
   allCategories: string[] = [];
   // current selected accountId
   currentAccountId = 'all';
+  selectedCategories = [];
 
   async init() {
     try {
@@ -63,15 +64,32 @@ export class AppStore {
     this.currentAccountId = accountId;
   }
 
+  setSelectedCategories(categories: []) {
+    this.selectedCategories = categories;
+  }
+
   // computed value of all transactions for currently selected account
   get currentTransactions() {
     // if 'all', return all transactions unfiltered
     if (this.currentAccountId === 'all') {
-      return this.allTransactions;
+      return this.filterByCategories(this.allTransactions);
     }
     // or return all transactions with accountId same as selected
-    return this.allTransactions.filter((transaction) => {
-      return transaction.accountId === this.currentAccountId;
+    return this.filterByCategories(
+      this.allTransactions.filter((transaction) => {
+        return transaction.accountId === this.currentAccountId;
+      }),
+    );
+  }
+
+  get currentCategories() {
+    return this.allCategories.map((category) => {
+      return {
+        category,
+        count: this.currentTransactions.filter((transaction) => {
+          return transaction.category === category;
+        }).length,
+      };
     });
   }
 
@@ -88,6 +106,17 @@ export class AppStore {
     });
     return currAccount ? currAccount.balance : 0;
   }
+
+  filterByCategories(transactions: Transaction[]) {
+    if (this.selectedCategories.length) {
+      return transactions.filter((transaction) => {
+        return !!this.selectedCategories.find((category) => {
+          return category === transaction.category;
+        });
+      });
+    }
+    return transactions;
+  }
 }
 
 decorate(AppStore, {
@@ -98,12 +127,15 @@ decorate(AppStore, {
   allAccounts: observable,
   allCategories: observable,
   currentAccountId: observable,
+  selectedCategories: observable,
 
   fetchTransactions: action.bound,
   fetchAccounts: action.bound,
   fetchCategories: action.bound,
   setCurrentAccount: action.bound,
+  setSelectedCategories: action.bound,
 
   currentTransactions: computed,
+  currentCategories: computed,
   currentBalance: computed,
 });
