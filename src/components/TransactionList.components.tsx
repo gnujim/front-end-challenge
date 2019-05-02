@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // Local imports
-import { StoreContext } from '..';
+import { StoreContext, formatCurrency, formatCategory } from '../utilities';
 
 const ListContainer = styled.div`
   height: 60vh;
@@ -76,10 +76,10 @@ export const TransactionList = observer(() => {
               <ListItemText>{transactionDate}</ListItemText>
               <ListItemTextWrapper>
                 <ListItemText>{description}</ListItemText>
-                <ListItemText>{category}</ListItemText>
+                <ListItemText>{formatCategory(category)}</ListItemText>
               </ListItemTextWrapper>
-              <ListItemText>{amount}</ListItemText>
-              <ListItemText>{runningBalance}</ListItemText>
+              <ListItemText>{formatCurrency(amount)}</ListItemText>
+              <ListItemText>{formatCurrency(runningBalance)}</ListItemText>
             </ListItem>
           );
         })}

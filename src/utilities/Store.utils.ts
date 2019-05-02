@@ -1,6 +1,7 @@
 // Third-party imports
-import { action, computed, decorate, observable } from 'mobx';
 import { compareAsc, compareDesc } from 'date-fns';
+import { action, computed, decorate, observable } from 'mobx';
+import React from 'react';
 
 // Local imports
 import {
@@ -47,7 +48,10 @@ export class AppStore {
   async fetchTransactions() {
     const data = await getTransactions();
     this.apiData.transactions = data;
-    this.allTransactions = data.transactions;
+    this.allTransactions = data.transactions.map((transaction) => {
+      // coerse transaction.category into a string, was running into issues formatting without this
+      return { ...transaction, category: `${transaction.category || ''}` };
+    });
   }
 
   async fetchAccounts() {
@@ -156,3 +160,6 @@ decorate(AppStore, {
   currentCategories: computed,
   currentBalance: computed,
 });
+
+export const store = new AppStore();
+export const StoreContext = React.createContext(store);

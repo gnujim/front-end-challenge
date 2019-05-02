@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // Local imports
-import { StoreContext } from '..';
+import { formatCurrency, StoreContext } from '../utilities';
 
 const InfoContainer = styled.div``;
 
@@ -28,7 +28,7 @@ export const AccountBalance = observer(() => {
   return (
     <InfoContainer>
       <BalanceTitle>BALANCE</BalanceTitle>
-      <Balance>${currentBalance}</Balance>
+      <Balance>{formatCurrency(currentBalance)}</Balance>
     </InfoContainer>
   );
 });

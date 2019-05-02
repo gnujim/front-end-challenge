@@ -5,7 +5,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // Local imports
-import { StoreContext } from '..';
+import { StoreContext, formatCategory } from '../utilities';
 
 const Option = Select.Option;
 
@@ -44,7 +44,7 @@ export const CategorySelector = observer(() => {
         {currentCategories.map((cat) => {
           return (
             <CategoryOption key={cat.category} disabled={!cat.count}>
-              {cat.category} ({cat.count})
+              {formatCategory(cat.category)} ({cat.count})
             </CategoryOption>
           );
         })}

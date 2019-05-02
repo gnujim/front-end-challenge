@@ -5,10 +5,7 @@ import ReactDOM from 'react-dom';
 // Local imports
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
-import { AppStore } from './utilities';
-
-const store = new AppStore();
-export const StoreContext = React.createContext(store);
+import { StoreContext, store } from './utilities';
 
 ReactDOM.render(
   <StoreContext.Provider value={store}>

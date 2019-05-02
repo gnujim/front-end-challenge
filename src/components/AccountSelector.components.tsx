@@ -5,7 +5,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // Local imports
-import { StoreContext } from '..';
+import { StoreContext } from '../utilities';
 
 const Option = Select.Option;
 
