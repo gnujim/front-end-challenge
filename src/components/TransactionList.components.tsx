@@ -47,17 +47,18 @@ const ListItemTextWrapper = styled.div`
 `;
 
 const DateTitle = styled(Title)`
-  transition: color .3s ease-in;
+  transition: color 0.3s ease-in;
+  cursor: pointer;
   &:hover {
     color: #5b8be2;
   }
 `;
 
-const Arrow = styled.img<{ ascending: boolean}>`
+const Arrow = styled.img<{ ascending: boolean }>`
   margin: 0 0 4px 6px;
   height: 15px;
-  transition: transform .3s ease-in-out;
-  transform: ${(props) => (props.ascending ? `rotate(180deg)` : `rotate(0deg)`)};  
+  transition: transform 0.3s ease-in-out;
+  transform: ${(props) => (props.ascending ? `rotate(180deg)` : `rotate(0deg)`)};
 `;
 
 export const TransactionList = observer(() => {
@@ -68,7 +69,7 @@ export const TransactionList = observer(() => {
       <ListHeader>
         <DateTitle onClick={() => toggleSortOrder()}>
           DATE
-          <Arrow src={arrow} alt="arrow" ascending={transAsc}/>
+          <Arrow src={arrow} alt="arrow" ascending={transAsc} />
         </DateTitle>
         <Title>TRANSACTION</Title>
         <Title>AMOUNT</Title>
