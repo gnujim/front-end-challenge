@@ -6,6 +6,7 @@ import styled from 'styled-components';
 // Local imports
 import { StoreContext, formatCurrency, formatCategory } from '../utilities';
 import { Title } from './Text.components';
+import arrow from '../assets/arrow.svg';
 
 const ListContainer = styled.div`
   height: 70vh;
@@ -45,13 +46,30 @@ const ListItemTextWrapper = styled.div`
   flex-direction: column;
 `;
 
+const DateTitle = styled(Title)`
+  transition: color .3s ease-in;
+  &:hover {
+    color: #5b8be2;
+  }
+`;
+
+const Arrow = styled.img<{ ascending: boolean}>`
+  margin: 0 0 4px 6px;
+  height: 15px;
+  transition: transform .3s ease-in-out;
+  transform: ${(props) => (props.ascending ? `rotate(180deg)` : `rotate(0deg)`)};  
+`;
+
 export const TransactionList = observer(() => {
-  const { loading, currentTransactions, toggleSortOrder } = useContext(StoreContext);
+  const { loading, currentTransactions, toggleSortOrder, transAsc } = useContext(StoreContext);
 
   return (
     <ListContainer>
       <ListHeader>
-        <Title onClick={() => toggleSortOrder()}>DATE</Title>
+        <DateTitle onClick={() => toggleSortOrder()}>
+          DATE
+          <Arrow src={arrow} alt="arrow" ascending={transAsc}/>
+        </DateTitle>
         <Title>TRANSACTION</Title>
         <Title>AMOUNT</Title>
         <Title>BALANCE</Title>
