@@ -1,5 +1,6 @@
 // Third-party imports
 import { action, computed, decorate, observable } from 'mobx';
+import { compareAsc, compareDesc } from 'date-fns';
 
 // Local imports
 import {
@@ -32,6 +33,7 @@ export class AppStore {
   // current selected accountId
   currentAccountId = 'all';
   selectedCategories = [];
+  transAsc = false;
 
   async init() {
     try {
@@ -68,8 +70,12 @@ export class AppStore {
     this.selectedCategories = categories;
   }
 
+  toggleSortOrder() {
+    this.transAsc = !this.transAsc;
+  }
+
   // computed value of all transactions for currently selected account
-  get currentTransactions() {
+  get unsortedTransactions() {
     // if 'all', return all transactions unfiltered
     if (this.currentAccountId === 'all') {
       return this.filterByCategories(this.allTransactions);
@@ -80,6 +86,14 @@ export class AppStore {
         return transaction.accountId === this.currentAccountId;
       }),
     );
+  }
+
+  get currentTransactions() {
+    return this.unsortedTransactions.slice().sort((a, b) => {
+      return this.transAsc
+        ? compareAsc(a.transactionDate, b.transactionDate)
+        : compareDesc(a.transactionDate, b.transactionDate);
+    });
   }
 
   get currentCategories() {
@@ -128,13 +142,16 @@ decorate(AppStore, {
   allCategories: observable,
   currentAccountId: observable,
   selectedCategories: observable,
+  transAsc: observable,
 
   fetchTransactions: action.bound,
   fetchAccounts: action.bound,
   fetchCategories: action.bound,
   setCurrentAccount: action.bound,
   setSelectedCategories: action.bound,
+  toggleSortOrder: action.bound,
 
+  unsortedTransactions: computed,
   currentTransactions: computed,
   currentCategories: computed,
   currentBalance: computed,

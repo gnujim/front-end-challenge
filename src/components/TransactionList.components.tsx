@@ -47,7 +47,7 @@ const ListItemTextWrapper = styled.div`
 `;
 
 export const TransactionList = observer(() => {
-  const { loading, currentTransactions } = useContext(StoreContext);
+  const { loading, currentTransactions, toggleSortOrder } = useContext(StoreContext);
 
   if (loading) {
     return <p>...loading</p>;
@@ -56,7 +56,7 @@ export const TransactionList = observer(() => {
   return (
     <ListContainer>
       <ListHeader>
-        <ListTitle>DATE</ListTitle>
+        <ListTitle onClick={() => toggleSortOrder()}>DATE</ListTitle>
         <ListTitle>TRANSACTION</ListTitle>
         <ListTitle>AMOUNT</ListTitle>
         <ListTitle>BALANCE</ListTitle>
