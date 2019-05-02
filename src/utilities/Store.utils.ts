@@ -78,29 +78,29 @@ export class AppStore {
   get unsortedTransactions() {
     // if 'all', return all transactions unfiltered
     if (this.currentAccountId === 'all') {
-      return this.filterByCategories(this.allTransactions);
+      return this.allTransactions;
     }
     // or return all transactions with accountId same as selected
-    return this.filterByCategories(
-      this.allTransactions.filter((transaction) => {
-        return transaction.accountId === this.currentAccountId;
-      }),
-    );
+    return this.allTransactions.filter((transaction) => {
+      return transaction.accountId === this.currentAccountId;
+    });
   }
 
   get currentTransactions() {
-    return this.unsortedTransactions.slice().sort((a, b) => {
-      return this.transAsc
-        ? compareAsc(a.transactionDate, b.transactionDate)
-        : compareDesc(a.transactionDate, b.transactionDate);
-    });
+    return this.filterByCategories(
+      this.unsortedTransactions.slice().sort((a, b) => {
+        return this.transAsc
+          ? compareAsc(a.transactionDate, b.transactionDate)
+          : compareDesc(a.transactionDate, b.transactionDate);
+      }),
+    );
   }
 
   get currentCategories() {
     return this.allCategories.map((category) => {
       return {
         category,
-        count: this.currentTransactions.filter((transaction) => {
+        count: this.unsortedTransactions.filter((transaction) => {
           return transaction.category === category;
         }).length,
       };

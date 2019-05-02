@@ -14,10 +14,10 @@ const HeaderContainer = styled.div`
 `;
 
 const InstitutionName = styled.div`
-  font-family: 'Montserrat Subrayada', serif;
+  font-family: 'Heebo', serif;
   letter-spacing: 0;
-  font-weight: 200;
   font-size: 34px;
+  font-weight: 800;
   color: white;
 `;
 
