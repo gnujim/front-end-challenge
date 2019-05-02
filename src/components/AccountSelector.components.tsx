@@ -14,8 +14,6 @@ const AccountContainer = styled.div`
   margin-bottom: 25px;
 `;
 
-const AccountOption = styled(Option)``;
-
 export const AccountSelector = observer(() => {
   const { loading, allAccounts, setCurrentAccount } = useContext(StoreContext);
 
@@ -31,17 +29,20 @@ export const AccountSelector = observer(() => {
   return (
     <AccountContainer>
       <Select
+        className="account-select"
         defaultValue="ALL ACCOUNTS"
         onChange={handleChange}
         style={{ width: '100%', color: 'black', fontSize: '30px' }}
         dropdownStyle={{ backgroundColor: '#fefefe' }}>
-        <AccountOption value="all">ALL ACCOUNTS</AccountOption>
+        <Option className="select-option" value="all">
+          ALL ACCOUNTS
+        </Option>
         {allAccounts.map((account) => {
           const { accountId, accountName, accountNumber } = account;
           return (
-            <AccountOption key={accountId} value={accountId}>
+            <Option className="select-option" key={accountId} value={accountId}>
               {accountName} - {accountNumber}
-            </AccountOption>
+            </Option>
           );
         })}
       </Select>

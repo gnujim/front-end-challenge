@@ -9,6 +9,31 @@ export const GlobalStyles = createGlobalStyle`
     font-family: 'Open Sans Condensed', sans-serif;
     font-weight: 300;
     letter-spacing: .5px;
+
+    /* Ant Design customized styling */
+    .account-select, .category-select {
+      .ant-select-selection {
+        border-radius: 0;
+        &:hover {
+          border-color: #80a7f7;
+        }
+      }
+    }
+
+    .ant-select-dropdown {
+      border-radius: 0;
+      .select-option {
+        &:hover {
+          background-color: #bed5ff;
+        }
+        &.ant-select-dropdown-menu-item-active {
+          background-color: #bed5ff;
+        }
+        &.ant-select-dropdown-menu-item:first-child,  &.ant-select-dropdown-menu-item:last-child{
+          border-radius: 0;
+        }
+      }
+    }
   }
 `;
 

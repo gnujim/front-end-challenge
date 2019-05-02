@@ -15,8 +15,6 @@ const CategoriesContainer = styled.div`
   width: 100%;
 `;
 
-const CategoryOption = styled(Option)``;
-
 export const CategorySelector = observer(() => {
   const { loading, currentCategories, setSelectedCategories } = useContext(StoreContext);
 
@@ -31,6 +29,7 @@ export const CategorySelector = observer(() => {
         <p>...loading</p>
       ) : (
         <Select
+          className="category-select"
           mode="multiple"
           style={{ width: '100%' }}
           allowClear={true}
@@ -38,9 +37,9 @@ export const CategorySelector = observer(() => {
           onChange={handleChange}>
           {currentCategories.map((cat) => {
             return (
-              <CategoryOption key={cat.category} disabled={!cat.count}>
+              <Option className="select-option" key={cat.category} disabled={!cat.count}>
                 {formatCategory(cat.category)} ({cat.count})
-              </CategoryOption>
+              </Option>
             );
           })}
         </Select>
