@@ -3,7 +3,8 @@ export interface Transaction {
   transactionDate: string;
   description: string;
   amount: number;
-  withdrawal: number;
+  deposit?: number;
+  withdrawal?: number;
   runningBalance: number;
   category: string;
   transactionId: string;

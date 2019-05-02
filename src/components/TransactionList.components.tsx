@@ -61,6 +61,14 @@ const Arrow = styled.img<{ ascending: boolean }>`
   transform: ${(props) => (props.ascending ? `rotate(180deg)` : `rotate(0deg)`)};
 `;
 
+const ListItemAmount = styled(ListItemText)<{ deposit: boolean }>`
+  color: ${(props) => (props.deposit ? `#47af4f` : `black`)};
+`;
+
+const ListItemBalance = styled(ListItemText)<{ overdrawn: boolean }>`
+  color: ${(props) => (props.overdrawn ? `#f32d2d` : `black`)};
+`;
+
 export const TransactionList = observer(() => {
   const { loading, currentTransactions, toggleSortOrder, transAsc } = useContext(StoreContext);
 
@@ -85,6 +93,7 @@ export const TransactionList = observer(() => {
               transactionDate,
               description,
               category,
+              deposit,
               amount,
               runningBalance,
             } = transaction;
@@ -95,8 +104,10 @@ export const TransactionList = observer(() => {
                   <ListItemText>{description}</ListItemText>
                   <ListItemCategory>{formatCategory(category)}</ListItemCategory>
                 </ListItemTextWrapper>
-                <ListItemText>{formatCurrency(amount)}</ListItemText>
-                <ListItemText>{formatCurrency(runningBalance)}</ListItemText>
+                <ListItemAmount deposit={!!deposit}>{formatCurrency(amount)}</ListItemAmount>
+                <ListItemBalance overdrawn={runningBalance < 0}>
+                  {formatCurrency(runningBalance)}
+                </ListItemBalance>
               </ListItem>
             );
           })
