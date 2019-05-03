@@ -23,8 +23,8 @@ const BalanceContainer = styled.div`
 
 const Balance = styled.div`
   font-size: 50px;
-  @media (min-width: ${sizes.desktop}) {
-    font-size: 60px;
+  @media (min-width: ${sizes.tablet}) {
+    font-size: 65px;
   }
 `;
 

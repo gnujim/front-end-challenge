@@ -57,7 +57,9 @@ const ListTitle = styled(Title)`
 const ListContent = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
+  margin-top: 5px;
+  @media (min-width: ${sizes.tablet}) {
+  }
   @media (min-width: ${sizes.desktop}) {
     overflow-y: scroll;
     /* TODO: FIX THIS HEIGHT */
@@ -83,24 +85,28 @@ const ListItem = styled.div`
   }
 `;
 
+const ListItemText = styled.div`
+  overflow: wrap;
+`;
+
 const ListItemDate = styled.div`
+  font-size: 14px;
   grid-area: date;
   @media (min-width: ${sizes.tablet}) {
+    font-size: 18px;
     grid-area: unset;
+    line-height: 22px;
+    align-self: center;
   }
 `;
 
-const ListItemTextWrapper = styled.div`
+const ListItemDescriptionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   grid-area: description;
   @media (min-width: ${sizes.tablet}) {
     grid-area: unset;
   }
-`;
-
-const ListItemText = styled.div`
-  overflow: wrap;
 `;
 
 const ListMobileTitle = styled(Title)`
@@ -112,6 +118,7 @@ const ListMobileTitle = styled(Title)`
 `;
 
 const ListItemCategory = styled.div`
+  color: #5a5a5a;
   font-size: 14px;
   display: flex;
   align-items: center;
@@ -125,8 +132,9 @@ const ListItemAmount = styled(ListItemText)<{ deposit: boolean }>`
   text-align: end;
   grid-area: amount;
   @media (min-width: ${sizes.tablet}) {
-    text-align: unset;
+    align-self: center;
     grid-area: unset;
+    text-align: unset;
   }
 `;
 
@@ -135,8 +143,9 @@ const ListItemBalance = styled(ListItemText)<{ overdrawn: boolean }>`
   text-align: end;
   grid-area: balance;
   @media (min-width: ${sizes.tablet}) {
-    text-align: unset;
+    align-self: center;
     grid-area: unset;
+    text-align: unset;
   }
 `;
 
@@ -188,7 +197,7 @@ const TransactionRow: React.FunctionComponent<{
         <ListMobileTitle>DATE</ListMobileTitle>
         {moment(transactionDate).format('ll')}
       </ListItemDate>
-      <ListItemTextWrapper>
+      <ListItemDescriptionWrapper>
         <ListItemText>
           <ListMobileTitle>DESCRIPTION</ListMobileTitle>
           {description}
@@ -199,7 +208,7 @@ const TransactionRow: React.FunctionComponent<{
             {formatCategory(category)}
           </ListItemCategory>
         )}
-      </ListItemTextWrapper>
+      </ListItemDescriptionWrapper>
       <ListItemAmount deposit={!!deposit}>
         <ListMobileTitle>AMOUNT</ListMobileTitle>
         {formatCurrency(amount)}
