@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { HorizontalFlex } from './Layout.components';
 import github from '../assets/github.png';
 import piggy from '../assets/piggy-bank.svg';
-import { sizes, headerBlue } from '../styles';
+import { sizes, headerBlue, borderBlue } from '../styles';
 
 const HeaderContainer = styled.div`
   align-items: center;
@@ -58,6 +58,17 @@ const GithubLink = styled.a`
   display: none;
   @media (min-width: ${sizes.tablet}) {
     display: flex;
+  }
+  @media (min-width: ${sizes.desktop}) {
+    align-items: center;
+    border-radius: 50%;
+    height: 41px;
+    justify-content: center;
+    width: 41px;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      background-color: ${borderBlue};
+    }
   }
 `;
 const GithubLogo = styled.img`
