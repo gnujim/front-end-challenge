@@ -12,7 +12,7 @@ ReactDOM.render(
     <App />
   </StoreContext.Provider>,
   document.getElementById('root'),
-  // () => store.init(),
+  () => store.init(),
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -14,9 +14,6 @@ import {
   TransactionsResponse,
   CategoriesResponse,
   getCategories,
-  TransactionData,
-  AccountData,
-  CategoryData,
 } from './Api.utils';
 import { colors } from '../styles';
 
@@ -48,14 +45,6 @@ export class AppStore {
   // user selected date range for filter
   dateRange: [Moment, Moment] = [moment(), moment()];
 
-  // TODO: TEMPORARY for faster reloading
-  constructor() {
-    this.fetchTransactions();
-    this.fetchAccounts();
-    this.fetchCategories();
-    this.loading = false;
-  }
-
   // initializing data store with fetched data
   async init() {
     try {
@@ -67,8 +56,7 @@ export class AppStore {
   }
 
   async fetchTransactions() {
-    // const data = await getTransactions();
-    const data = TransactionData;
+    const data = await getTransactions();
     this.apiData.transactions = data;
     // set default date range from earliest transaction date to now
     this.defaultDateRange = [moment(data.earliestTransactionDate), moment()];
@@ -81,15 +69,13 @@ export class AppStore {
   }
 
   async fetchAccounts() {
-    // const data = await getAccounts();
-    const data = AccountData;
+    const data = await getAccounts();
     this.apiData.accounts = data;
     this.allAccounts = data.accounts;
   }
 
   async fetchCategories() {
-    // const data = await getCategories();
-    const data = CategoryData;
+    const data = await getCategories();
     this.apiData.categories = data;
     this.allCategories = data.categories;
   }

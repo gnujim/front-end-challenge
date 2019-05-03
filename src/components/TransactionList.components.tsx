@@ -13,6 +13,7 @@ import { sizes, green, red, shadowBlue } from '../styles';
 
 // TRANSACTION LIST STYLES
 const ListContainer = styled.div`
+  width: 100%;
   @media (min-width: ${sizes.tablet}) {
     margin-top: 15px;
   }

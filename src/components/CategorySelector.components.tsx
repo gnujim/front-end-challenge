@@ -90,14 +90,7 @@ const CategoryPieChart: React.FunctionComponent<{ data: { name: string; value: n
   const { data } = props;
   return (
     <PieChart width={300} height={275}>
-      <Pie
-        data={data}
-        cx={150}
-        cy={150}
-        outerRadius={110}
-        fill={highlightBlue}
-        dataKey="value"
-        onClick={(value) => console.log(value.name)}>
+      <Pie data={data} cx={150} cy={150} outerRadius={110} fill={highlightBlue} dataKey="value">
         {data.map((cat, index) => (
           <Cell key={index} fill={colors[index % colors.length]} />
         ))}
