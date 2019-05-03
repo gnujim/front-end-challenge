@@ -28,15 +28,18 @@ export const CategorySelector = observer(() => {
     setSelectedCategories(categories);
   };
 
+  // make data array for recharts pie chart
   const data = currentCategories.map((category) => {
-    return { name: formatCategory(category.category), value: category.count };
+    return {
+      name: formatCategory(category.category),
+      value: category.count,
+    };
   });
 
   return (
     <CategoriesContainer>
       <Title>CATEGORIES</Title>
       <HorizontalSeparator />
-
       <Select
         className="category-select"
         mode="multiple"

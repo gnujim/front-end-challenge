@@ -1,5 +1,6 @@
 // Third-part imports
 import { observer } from 'mobx-react-lite';
+import moment from 'moment';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 
@@ -8,7 +9,7 @@ import { StoreContext, formatCurrency, formatCategory, Transaction } from '../ut
 import { Title } from './Text.components';
 import arrow from '../assets/arrow.svg';
 import { sizes } from '../styles';
-import { HorizontalSeparator } from './Layout.components';
+import { ColorBadge, HorizontalSeparator } from './Layout.components';
 
 // TRANSACTION LIST
 const ListContainer = styled.div`
@@ -112,6 +113,8 @@ const ListMobileTitle = styled(Title)`
 
 const ListItemCategory = styled.div`
   font-size: 14px;
+  display: flex;
+  align-items: center;
   @media (min-width: ${sizes.tablet}) {
     font-size: 18px;
   }
@@ -138,7 +141,9 @@ const ListItemBalance = styled(ListItemText)<{ overdrawn: boolean }>`
 `;
 
 export const TransactionList = observer(() => {
-  const { currentTransactions, toggleSortOrder, transAsc } = useContext(StoreContext);
+  const { currentTransactions, toggleSortOrder, transAsc, currentCategories } = useContext(
+    StoreContext,
+  );
   return (
     <ListContainer>
       <ListHeader>
@@ -153,9 +158,13 @@ export const TransactionList = observer(() => {
       <HorizontalSeparator />
       <ListContent>
         {currentTransactions.map((transaction) => {
+          const cat = currentCategories.find(
+            (category) => category.category === transaction.category,
+          );
+          const categoryColor = cat ? cat.color : '#000';
           return (
             <React.Fragment key={transaction.transactionId}>
-              <TransactionRow transaction={transaction} />
+              <TransactionRow transaction={transaction} categoryColor={categoryColor} />
               <HorizontalSeparator />
             </React.Fragment>
           );
@@ -165,22 +174,31 @@ export const TransactionList = observer(() => {
   );
 });
 
-const TransactionRow: React.FunctionComponent<{ transaction: Transaction }> = (props) => {
+const TransactionRow: React.FunctionComponent<{
+  transaction: Transaction;
+  categoryColor: string;
+}> = (props) => {
   const {
     transaction: { transactionDate, description, category, deposit, amount, runningBalance },
+    categoryColor,
   } = props;
   return (
     <ListItem>
       <ListItemDate>
         <ListMobileTitle>DATE</ListMobileTitle>
-        {transactionDate}
+        {moment(transactionDate).format('ll')}
       </ListItemDate>
       <ListItemTextWrapper>
         <ListItemText>
           <ListMobileTitle>DESCRIPTION</ListMobileTitle>
           {description}
         </ListItemText>
-        <ListItemCategory>{formatCategory(category)}</ListItemCategory>
+        {!!category && (
+          <ListItemCategory>
+            <ColorBadge color={categoryColor} />
+            {formatCategory(category)}
+          </ListItemCategory>
+        )}
       </ListItemTextWrapper>
       <ListItemAmount deposit={!!deposit}>
         <ListMobileTitle>AMOUNT</ListMobileTitle>
