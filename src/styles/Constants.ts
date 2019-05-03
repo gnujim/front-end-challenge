@@ -2,8 +2,13 @@
  * Style constants
  **/
 
-export const white = '#fefefe';
-export const blue = '#5ea3ec';
+export const white = '#fdfeff';
+export const lighterBlue = '#5b8be2';
+export const darkerBlue = '#5a5fe4';
+export const highlightBlue = '#bed5ff';
+export const borderBlue = '#80a7f7';
+export const green = '';
+export const red = '';
 
 export const sizes = {
   desktop: '1200px',

@@ -1,10 +1,11 @@
 import { createGlobalStyle } from 'styled-components';
 
-export const GlobalStyles = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Heebo:100,200,300,400,800');
+import { lighterBlue, darkerBlue } from './Constants';
+
+export const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Heebo:800');
   
   html {
-    /* height: 100%; */
     box-sizing: border-box;
   }
 
@@ -16,7 +17,6 @@ export const GlobalStyles = createGlobalStyle`
     letter-spacing: .5px;
     margin: 0;
     padding: 0;
-    /* min-height: 100vh; */
 
     /*** Ant Design customized styling ***/
     .account-select, .category-select {

@@ -11,3 +11,14 @@ export const ColorBadge = styled.div<{ color: string }>`
   width: 10px;
   margin-right: 5px;
 `;
+
+export const HorizontalFlex = styled.div<{ align?: string }>`
+  display: flex;
+  flex-direction: row;
+  align-items: ${(props) => (props.align ? props.align : 'unset')};
+`;
+
+export const VerticalFlex = styled.div`
+  display: flex;
+  flex-direction: column;
+`;

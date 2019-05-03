@@ -5,12 +5,12 @@ import 'antd/dist/antd.css';
 
 // Local imports
 import { Header, Content } from './components';
-import { GlobalStyles, sizes } from './styles';
+import { GlobalStyle, sizes } from './styles';
 
 const AppContainer = styled.div`
-  width: 100%;
-  height: 100%;
   color: black;
+  height: 100%;
+  width: 100%;
   @media (min-width: ${sizes.tablet}) {
     font-size: 22px;
   }
@@ -19,7 +19,7 @@ const AppContainer = styled.div`
 export const App = () => {
   return (
     <AppContainer>
-      <GlobalStyles />
+      <GlobalStyle />
       <Header />
       <Content />
     </AppContainer>

@@ -3,43 +3,46 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Local imports
+import github from '../assets/github.png';
 import piggy from '../assets/piggy-bank.svg';
 import { sizes } from '../styles';
+import { HorizontalFlex } from './Layout.components';
 
 const HeaderContainer = styled.div`
+  align-items: center;
+  background: #5a6ce3;
+  display: flex;
+  height: 80px;
+  justify-content: center;
   position: fixed;
   top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 80px;
   width: 100%;
-  background: #5a6ce3;
   z-index: 99;
+  @media (min-width: ${sizes.tablet}) {
+    justify-content: space-between;
+    padding: 0 25px;
+  }
   @media (min-width: ${sizes.desktop}) {
-    background: transparent;
-    position: relative;
     align-items: flex-end;
-    justify-content: flex-start;
+    background: transparent;
     padding: 0 50px;
+    position: relative;
   }
 `;
 
 const InstitutionName = styled.div`
   color: white;
   font-family: 'Heebo', serif;
-  /* font-size: calc(13px + 3vmin); */
-  font-weight: 800;
-  letter-spacing: 0;
   font-size: 24px;
+  letter-spacing: 0;
   line-height: 24px;
   @media (min-width: ${sizes.tablet}) {
     font-size: 32px;
     line-height: 32px;
   }
   @media (min-width: ${sizes.desktop}) {
-    line-height: 38px;
     font-size: 38px;
+    line-height: 38px;
   }
 `;
 
@@ -51,11 +54,31 @@ const InstitutionLogo = styled.img`
   }
 `;
 
+const GithubLink = styled.a`
+  display: none;
+  @media (min-width: ${sizes.tablet}) {
+    display: flex;
+  }
+`;
+const GithubLogo = styled.img`
+  height: 30px;
+  width: 30px;
+  @media (min-width: ${sizes.desktop}) {
+    height: 40px;
+    width: 40px;
+  }
+`;
+
 export const Header = () => {
   return (
     <HeaderContainer>
-      <InstitutionLogo src={piggy} alt="logo" />
-      <InstitutionName>Worldwide Savings Bank</InstitutionName>
+      <HorizontalFlex align={'flex-end'}>
+        <InstitutionLogo src={piggy} alt="logo" />
+        <InstitutionName>Worldwide Savings Bank</InstitutionName>
+      </HorizontalFlex>
+      <GithubLink href="https://github.com/gnujim/front-end-challenge" target="_blank">
+        <GithubLogo src={github} alt="Github Logo" />
+      </GithubLink>
     </HeaderContainer>
   );
 };
