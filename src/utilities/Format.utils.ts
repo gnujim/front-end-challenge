@@ -10,6 +10,6 @@ export const formatCurrency = (amount: number) => {
 };
 
 // For formatting categories
-export const formatCategory = (category: string) => {
+export const formatCategory = (category: string = '') => {
   return category.replace(/_/g, ' ');
 };

@@ -13,6 +13,9 @@ import {
   TransactionsResponse,
   CategoriesResponse,
   getCategories,
+  TransactionData,
+  AccountData,
+  CategoryData,
 } from './Api.utils';
 
 export class AppStore {
@@ -36,17 +39,26 @@ export class AppStore {
   selectedCategories = [];
   transAsc = false;
 
+  constructor() {
+    this.fetchTransactions();
+    this.fetchAccounts();
+    this.fetchCategories();
+    this.loading = false;
+  }
+
   async init() {
     try {
       await Promise.all([this.fetchTransactions(), this.fetchAccounts(), this.fetchCategories()]);
     } catch (error) {
       this.apiError = error.message;
     }
+
     this.loading = false;
   }
 
   async fetchTransactions() {
-    const data = await getTransactions();
+    // const data = await getTransactions();
+    const data = TransactionData;
     this.apiData.transactions = data;
     this.allTransactions = data.transactions.map((transaction) => {
       // coerse transaction.category into a string, was running into issues formatting without this
@@ -55,13 +67,15 @@ export class AppStore {
   }
 
   async fetchAccounts() {
-    const data = await getAccounts();
+    // const data = await getAccounts();
+    const data = AccountData;
     this.apiData.accounts = data;
     this.allAccounts = data.accounts;
   }
 
   async fetchCategories() {
-    const data = await getCategories();
+    // const data = await getCategories();
+    const data = CategoryData;
     this.apiData.categories = data;
     this.allCategories = data.categories;
   }
