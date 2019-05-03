@@ -54,6 +54,7 @@ export const getCategories = async () => {
   return data;
 };
 
+// TODO: TEMPORARY api data stored locally
 export const TransactionData = {
   earliestTransactionDate: '2015-12-21',
   latestTransactionDate: '2016-03-18',

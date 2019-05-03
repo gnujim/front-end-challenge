@@ -10,6 +10,7 @@ import arrow from '../assets/arrow.svg';
 import { sizes } from '../styles';
 import { HorizontalSeparator } from './Layout.components';
 
+// TRANSACTION LIST
 const ListContainer = styled.div`
   @media (min-width: ${sizes.tablet}) {
     margin-top: 15px;
@@ -131,7 +132,6 @@ const ListItemBalance = styled(ListItemText)<{ overdrawn: boolean }>`
   grid-area: balance;
   @media (min-width: ${sizes.tablet}) {
     text-align: unset;
-
     grid-area: unset;
   }
 `;
@@ -152,7 +152,12 @@ export const TransactionList = observer(() => {
       <HorizontalSeparator />
       <ListContent>
         {currentTransactions.map((transaction) => {
-          return <TransactionRow key={transaction.transactionId} transaction={transaction} />;
+          return (
+            <React.Fragment key={transaction.transactionId}>
+              <TransactionRow transaction={transaction} />
+              <HorizontalSeparator />
+            </React.Fragment>
+          );
         })}
       </ListContent>
     </ListContainer>
@@ -164,29 +169,26 @@ const TransactionRow: React.FunctionComponent<{ transaction: Transaction }> = (p
     transaction: { transactionDate, description, category, deposit, amount, runningBalance },
   } = props;
   return (
-    <>
-      <ListItem>
-        <ListItemDate>
-          <ListMobileTitle>DATE</ListMobileTitle>
-          {transactionDate}
-        </ListItemDate>
-        <ListItemTextWrapper>
-          <ListItemText>
-            <ListMobileTitle>DESCRIPTION</ListMobileTitle>
-            {description}
-          </ListItemText>
-          <ListItemCategory>{formatCategory(category)}</ListItemCategory>
-        </ListItemTextWrapper>
-        <ListItemAmount deposit={!!deposit}>
-          <ListMobileTitle>AMOUNT</ListMobileTitle>
-          {formatCurrency(amount)}
-        </ListItemAmount>
-        <ListItemBalance overdrawn={runningBalance < 0}>
-          <ListMobileTitle>BALANCE</ListMobileTitle>
-          {formatCurrency(runningBalance)}
-        </ListItemBalance>
-      </ListItem>
-      <HorizontalSeparator />
-    </>
+    <ListItem>
+      <ListItemDate>
+        <ListMobileTitle>DATE</ListMobileTitle>
+        {transactionDate}
+      </ListItemDate>
+      <ListItemTextWrapper>
+        <ListItemText>
+          <ListMobileTitle>DESCRIPTION</ListMobileTitle>
+          {description}
+        </ListItemText>
+        <ListItemCategory>{formatCategory(category)}</ListItemCategory>
+      </ListItemTextWrapper>
+      <ListItemAmount deposit={!!deposit}>
+        <ListMobileTitle>AMOUNT</ListMobileTitle>
+        {formatCurrency(amount)}
+      </ListItemAmount>
+      <ListItemBalance overdrawn={runningBalance < 0}>
+        <ListMobileTitle>BALANCE</ListMobileTitle>
+        {formatCurrency(runningBalance)}
+      </ListItemBalance>
+    </ListItem>
   );
 };

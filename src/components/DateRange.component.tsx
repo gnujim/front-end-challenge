@@ -1,21 +1,33 @@
 // Third-party imports
-import React from 'react';
-import styled from 'styled-components';
 import { DatePicker } from 'antd';
+import { observer } from 'mobx-react-lite';
+import { Moment } from 'moment';
+import React, { useContext } from 'react';
+import styled from 'styled-components';
 
 // Local imports
-import { TitleBorder } from './Text.components';
+import { HorizontalSeparator } from './Layout.components';
+import { Title } from './Text.components';
+import { StoreContext } from '../utilities';
 
 // Get RangePicker out of antd DatePicker
 const { RangePicker } = DatePicker;
 
 const DateRangeContainer = styled.div``;
 
-export const DateRange = () => {
+export const DateRange = observer(() => {
+  const { dateRange, setDateRange } = useContext(StoreContext);
+
   return (
     <DateRangeContainer>
-      <TitleBorder>DATE RANGE</TitleBorder>
-      <RangePicker />
+      <Title>DATE RANGE</Title>
+      <HorizontalSeparator />
+      <RangePicker
+        defaultValue={dateRange}
+        onChange={(dates) => {
+          setDateRange(dates as [Moment, Moment]);
+        }}
+      />
     </DateRangeContainer>
   );
-};
+});

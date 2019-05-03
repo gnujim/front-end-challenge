@@ -18,7 +18,6 @@ export const AccountSelector = observer(() => {
   const { allAccounts, setCurrentAccount } = useContext(StoreContext);
 
   const handleChange = (value: string) => {
-    console.log(value);
     setCurrentAccount(value);
   };
 

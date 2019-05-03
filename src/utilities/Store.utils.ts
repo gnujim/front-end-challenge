@@ -1,6 +1,7 @@
 // Third-party imports
 import { compareAsc, compareDesc } from 'date-fns';
 import { action, computed, decorate, observable } from 'mobx';
+import moment, { Moment } from 'moment';
 import React from 'react';
 
 // Local imports
@@ -33,12 +34,20 @@ export class AppStore {
   allTransactions: Transaction[] = [];
   // all accounts in the app
   allAccounts: Account[] = [];
+  // all categories in the app
   allCategories: string[] = [];
   // current selected accountId
   currentAccountId = 'all';
+  // user selected categories for filter
   selectedCategories = [];
+  // boolean flag for sorting transaction order
   transAsc = false;
+  // default date range for all transactions
+  defaultDateRange: [Moment, Moment] = [moment(), moment()];
+  // user selected date range for filter
+  dateRange: [Moment, Moment] = [moment(), moment()];
 
+  // TODO: TEMPORARY for faster reloading
   constructor() {
     this.fetchTransactions();
     this.fetchAccounts();
@@ -46,13 +55,13 @@ export class AppStore {
     this.loading = false;
   }
 
+  // initializing data store with fetched data
   async init() {
     try {
       await Promise.all([this.fetchTransactions(), this.fetchAccounts(), this.fetchCategories()]);
     } catch (error) {
       this.apiError = error.message;
     }
-
     this.loading = false;
   }
 
@@ -60,8 +69,15 @@ export class AppStore {
     // const data = await getTransactions();
     const data = TransactionData;
     this.apiData.transactions = data;
+    // set default date range to earliest and latest transaction date from data
+    this.defaultDateRange = [
+      moment(data.earliestTransactionDate),
+      moment(data.latestTransactionDate),
+    ];
+    // set initial date range to earliest and latest transaction date from data
+    this.dateRange = [moment(data.earliestTransactionDate), moment(data.latestTransactionDate)];
+    // NOTE: coerse transaction.category into a string, was running into issues formatting without this
     this.allTransactions = data.transactions.map((transaction) => {
-      // coerse transaction.category into a string, was running into issues formatting without this
       return { ...transaction, category: `${transaction.category || ''}` };
     });
   }
@@ -80,20 +96,28 @@ export class AppStore {
     this.allCategories = data.categories;
   }
 
+  // sets current account wtih user selected account
   setCurrentAccount(accountId: string) {
     this.currentAccountId = accountId;
   }
 
+  // sets selected categories with user selected categories
   setSelectedCategories(categories: []) {
     this.selectedCategories = categories;
   }
 
+  // sets date range with user selected date ranges
+  setDateRange(dates: [Moment, Moment]) {
+    this.dateRange = !dates.length ? this.defaultDateRange : dates;
+  }
+
+  // toggles between ascending and descending transaction order
   toggleSortOrder() {
     this.transAsc = !this.transAsc;
   }
 
   // computed value of all transactions for currently selected account
-  get unsortedTransactions() {
+  get transactionsForAccount() {
     // if 'all', return all transactions unfiltered
     if (this.currentAccountId === 'all') {
       return this.allTransactions;
@@ -104,27 +128,50 @@ export class AppStore {
     });
   }
 
-  get currentTransactions() {
-    return this.filterByCategories(
-      this.unsortedTransactions.slice().sort((a, b) => {
-        return this.transAsc
-          ? compareAsc(a.transactionDate, b.transactionDate)
-          : compareDesc(a.transactionDate, b.transactionDate);
-      }),
-    );
+  // filter for transactions in current date range
+  get transactionsInDateRange() {
+    return this.transactionsForAccount.filter((transaction) => {
+      const [start, end] = this.dateRange;
+      const isInRange = moment(transaction.transactionDate).isBetween(start, end);
+      return isInRange;
+    });
   }
 
+  // filter for transactions by selected categories
+  get transactionsForCategories() {
+    if (this.selectedCategories.length) {
+      return this.transactionsInDateRange.filter((transaction) => {
+        return !!this.selectedCategories.find((category) => {
+          return category === transaction.category;
+        });
+      });
+    }
+    return this.transactionsInDateRange;
+  }
+
+  // all visible transactions sorted ascending/descending
+  get currentTransactions() {
+    return this.transactionsForCategories.slice().sort((a, b) => {
+      return this.transAsc
+        ? compareAsc(a.transactionDate, b.transactionDate)
+        : compareDesc(a.transactionDate, b.transactionDate);
+    });
+  }
+
+  // get chosen categories with count
+  // TODO: add category colours
   get currentCategories() {
     return this.allCategories.map((category) => {
       return {
         category,
-        count: this.unsortedTransactions.filter((transaction) => {
+        count: this.transactionsInDateRange.filter((transaction) => {
           return transaction.category === category;
         }).length,
       };
     });
   }
 
+  // get current balance
   get currentBalance() {
     // if 'all', return total balances of all accounts
     if (this.currentAccountId === 'all') {
@@ -138,17 +185,6 @@ export class AppStore {
     });
     return currAccount ? currAccount.balance : 0;
   }
-
-  filterByCategories(transactions: Transaction[]) {
-    if (this.selectedCategories.length) {
-      return transactions.filter((transaction) => {
-        return !!this.selectedCategories.find((category) => {
-          return category === transaction.category;
-        });
-      });
-    }
-    return transactions;
-  }
 }
 
 decorate(AppStore, {
@@ -161,15 +197,17 @@ decorate(AppStore, {
   currentAccountId: observable,
   selectedCategories: observable,
   transAsc: observable,
+  dateRange: observable,
 
   fetchTransactions: action.bound,
   fetchAccounts: action.bound,
   fetchCategories: action.bound,
   setCurrentAccount: action.bound,
   setSelectedCategories: action.bound,
+  setDateRange: action.bound,
   toggleSortOrder: action.bound,
 
-  unsortedTransactions: computed,
+  transactionsForAccount: computed,
   currentTransactions: computed,
   currentCategories: computed,
   currentBalance: computed,

@@ -5,10 +5,10 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // Local imports
-import { Title } from './Text.components';
-import { StoreContext, formatCategory } from '../utilities';
-import { sizes } from '../styles';
 import { HorizontalSeparator } from './Layout.components';
+import { Title } from './Text.components';
+import { sizes } from '../styles';
+import { StoreContext, formatCategory } from '../utilities';
 
 // Get Option out of antd Select
 const Option = Select.Option;

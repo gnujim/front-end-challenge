@@ -4,10 +4,10 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // Local imports
-import { Title } from './Text.components';
-import { formatCurrency, StoreContext } from '../utilities';
-import { sizes } from '../styles';
 import { HorizontalSeparator } from './Layout.components';
+import { Title } from './Text.components';
+import { sizes } from '../styles';
+import { formatCurrency, StoreContext } from '../utilities';
 
 const BalanceContainer = styled.div``;
 

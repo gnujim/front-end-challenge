@@ -5,6 +5,7 @@ export const GlobalStyles = createGlobalStyle`
   
   html {
     /* height: 100%; */
+    box-sizing: border-box;
   }
 
   body {

@@ -1,5 +1,6 @@
 // Third-party imports
 import { Spin } from 'antd';
+import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 
@@ -7,10 +8,10 @@ import styled from 'styled-components';
 import { AccountBalance } from './AccountBalance.components';
 import { AccountSelector } from './AccountSelector.components';
 import { CategorySelector } from './CategorySelector.components';
+import { DateRange } from './DateRange.component';
 import { TransactionList } from './TransactionList.components';
-import { observer } from 'mobx-react-lite';
-import { StoreContext } from '../utilities';
 import { sizes } from '../styles';
+import { StoreContext } from '../utilities';
 
 const ContentContainer = styled.div`
   padding: 15px;
@@ -44,7 +45,7 @@ const ContentSidebar = styled.div`
   }
   @media (min-width: ${sizes.desktop}) {
     grid-template-columns: unset;
-    grid-template-rows: 1fr 2fr;
+    grid-template-rows: 1fr 1fr 2fr;
   }
 `;
 
@@ -72,6 +73,7 @@ export const Content = observer(() => {
           <ContentMain>
             <ContentSidebar>
               <AccountBalance />
+              <DateRange />
               <CategorySelector />
             </ContentSidebar>
             <TransactionList />
