@@ -5,9 +5,10 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // Local imports
-import { TitleBorder } from './Text.components';
+import { Title } from './Text.components';
 import { StoreContext, formatCategory } from '../utilities';
 import { sizes } from '../styles';
+import { HorizontalSeparator } from './Layout.components';
 
 // Get Option out of antd Select
 const Option = Select.Option;
@@ -28,7 +29,8 @@ export const CategorySelector = observer(() => {
 
   return (
     <CategoriesContainer>
-      <TitleBorder>CATEGORIES</TitleBorder>
+      <Title>CATEGORIES</Title>
+      <HorizontalSeparator />
       <Select
         className="category-select"
         mode="multiple"

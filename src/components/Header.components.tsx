@@ -17,7 +17,10 @@ const HeaderContainer = styled.div`
   background: #5a6ce3;
   z-index: 99;
   @media (min-width: ${sizes.desktop}) {
+    background: transparent;
+    position: relative;
     align-items: flex-end;
+    justify-content: flex-start;
     padding: 0 50px;
   }
 `;

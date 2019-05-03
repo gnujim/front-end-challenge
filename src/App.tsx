@@ -11,8 +11,8 @@ const AppContainer = styled.div`
   /* background-attachment: scroll; */
   /* background-size: cover; */
   width: 100%;
-  min-height: 100vh;
-  /* height: 100vh; */
+  /* min-height: 100vh; */
+  height: 100%;
   /* font-size: calc(10px + 2vmin); */
   color: black;
   @media (min-width: ${sizes.tablet}) {

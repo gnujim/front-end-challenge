@@ -3,6 +3,10 @@ import { createGlobalStyle } from 'styled-components';
 export const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Heebo:100,200,300,400,800');
   
+  html {
+    /* height: 100%; */
+  }
+
   body {
     margin: 0;
     padding: 0;
@@ -10,7 +14,8 @@ export const GlobalStyles = createGlobalStyle`
     font-weight: 300;
     letter-spacing: .5px;
     background: radial-gradient(circle, #5b8be2 40%, #5a5fe4 100%);
-    min-height: 100vh;
+    height: 100vh;
+    /* min-height: 100vh; */
 
     /* Ant Design customized styling */
     .account-select, .category-select {

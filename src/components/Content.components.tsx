@@ -14,9 +14,7 @@ import { sizes } from '../styles';
 
 const ContentContainer = styled.div`
   padding: 15px;
-  /* max-height: 100%; */
   margin: 80px 5px 10px 5px;
-  /* height: 100%; */
   background-color: #fdfeff;
   z-index: 0;
   @media (min-width: ${sizes.tablet}) {
@@ -26,6 +24,7 @@ const ContentContainer = styled.div`
     box-shadow: #5c88e2 -14px 14px;
     margin: 30px 10%;
     padding: 20px;
+    height: 75vh;
   }
 `;
 
@@ -44,7 +43,8 @@ const ContentSidebar = styled.div`
     grid-column-gap: 20px;
   }
   @media (min-width: ${sizes.desktop}) {
-    grid-template-rows: 1fr 1fr 2fr;
+    grid-template-columns: unset;
+    grid-template-rows: 1fr 2fr;
   }
 `;
 

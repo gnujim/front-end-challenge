@@ -8,17 +8,21 @@ import { StoreContext, formatCurrency, formatCategory, Transaction } from '../ut
 import { Title } from './Text.components';
 import arrow from '../assets/arrow.svg';
 import { sizes } from '../styles';
+import { HorizontalSeparator } from './Layout.components';
 
 const ListContainer = styled.div`
-  /* height: 70vh; */
   @media (min-width: ${sizes.tablet}) {
     margin-top: 15px;
+  }
+  @media (min-width: ${sizes.desktop}) {
+    margin-top: 0;
+    /* height not referencing parent */
+    height: 70vh;
   }
 `;
 
 const ListHeader = styled.div`
   display: grid;
-  border-bottom: 1px solid black;
   @media (min-width: ${sizes.tablet}) {
     grid-template-columns: 1fr 3fr 1fr 1fr;
   }
@@ -54,13 +58,12 @@ const ListContent = styled.div`
   margin-top: 10px;
   @media (min-width: ${sizes.desktop}) {
     overflow-y: scroll;
-    height: 95%;
+    height: 85%;
   }
 `;
 
 // TRANSACTION ROW
 const ListItem = styled.div`
-  border-bottom: 1px solid black;
   font-size: 18px;
   display: grid;
   grid-template-columns: 3fr 1fr;
@@ -146,6 +149,7 @@ export const TransactionList = observer(() => {
         <ListTitle>AMOUNT</ListTitle>
         <ListTitle>BALANCE</ListTitle>
       </ListHeader>
+      <HorizontalSeparator />
       <ListContent>
         {currentTransactions.map((transaction) => {
           return <TransactionRow key={transaction.transactionId} transaction={transaction} />;
@@ -160,26 +164,29 @@ const TransactionRow: React.FunctionComponent<{ transaction: Transaction }> = (p
     transaction: { transactionDate, description, category, deposit, amount, runningBalance },
   } = props;
   return (
-    <ListItem>
-      <ListItemDate>
-        <ListMobileTitle>DATE</ListMobileTitle>
-        {transactionDate}
-      </ListItemDate>
-      <ListItemTextWrapper>
-        <ListItemText>
-          <ListMobileTitle>DESCRIPTION</ListMobileTitle>
-          {description}
-        </ListItemText>
-        <ListItemCategory>{formatCategory(category)}</ListItemCategory>
-      </ListItemTextWrapper>
-      <ListItemAmount deposit={!!deposit}>
-        <ListMobileTitle>AMOUNT</ListMobileTitle>
-        {formatCurrency(amount)}
-      </ListItemAmount>
-      <ListItemBalance overdrawn={runningBalance < 0}>
-        <ListMobileTitle>BALANCE</ListMobileTitle>
-        {formatCurrency(runningBalance)}
-      </ListItemBalance>
-    </ListItem>
+    <>
+      <ListItem>
+        <ListItemDate>
+          <ListMobileTitle>DATE</ListMobileTitle>
+          {transactionDate}
+        </ListItemDate>
+        <ListItemTextWrapper>
+          <ListItemText>
+            <ListMobileTitle>DESCRIPTION</ListMobileTitle>
+            {description}
+          </ListItemText>
+          <ListItemCategory>{formatCategory(category)}</ListItemCategory>
+        </ListItemTextWrapper>
+        <ListItemAmount deposit={!!deposit}>
+          <ListMobileTitle>AMOUNT</ListMobileTitle>
+          {formatCurrency(amount)}
+        </ListItemAmount>
+        <ListItemBalance overdrawn={runningBalance < 0}>
+          <ListMobileTitle>BALANCE</ListMobileTitle>
+          {formatCurrency(runningBalance)}
+        </ListItemBalance>
+      </ListItem>
+      <HorizontalSeparator />
+    </>
   );
 };

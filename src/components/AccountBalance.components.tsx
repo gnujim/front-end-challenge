@@ -4,9 +4,10 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // Local imports
-import { TitleBorder } from './Text.components';
+import { Title } from './Text.components';
 import { formatCurrency, StoreContext } from '../utilities';
 import { sizes } from '../styles';
+import { HorizontalSeparator } from './Layout.components';
 
 const BalanceContainer = styled.div``;
 
@@ -22,7 +23,8 @@ export const AccountBalance = observer(() => {
 
   return (
     <BalanceContainer>
-      <TitleBorder>BALANCE</TitleBorder>
+      <Title>BALANCE</Title>
+      <HorizontalSeparator />
       <Balance>{formatCurrency(currentBalance)}</Balance>
     </BalanceContainer>
   );
