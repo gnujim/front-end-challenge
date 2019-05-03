@@ -5,6 +5,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // Local imports
+import { sizes } from '../styles';
 import { StoreContext } from '../utilities';
 
 // Get Option out of antd Select
@@ -12,6 +13,9 @@ const Option = Select.Option;
 
 const AccountContainer = styled.div`
   margin-bottom: 25px;
+  @media (min-width: ${sizes.tablet}) {
+    margin-bottom: 0;
+  }
 `;
 
 export const AccountSelector = observer(() => {

@@ -3,10 +3,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Local imports
+import { HorizontalFlex } from './Layout.components';
 import github from '../assets/github.png';
 import piggy from '../assets/piggy-bank.svg';
 import { sizes } from '../styles';
-import { HorizontalFlex } from './Layout.components';
 
 const HeaderContainer = styled.div`
   align-items: center;

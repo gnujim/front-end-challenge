@@ -4,6 +4,7 @@
 
 export const white = '#fdfeff';
 export const lighterBlue = '#5b8be2';
+export const middleBlue = '#5c88e2';
 export const darkerBlue = '#5a5fe4';
 export const highlightBlue = '#bed5ff';
 export const borderBlue = '#80a7f7';

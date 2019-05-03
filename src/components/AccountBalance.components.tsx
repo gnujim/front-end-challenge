@@ -4,12 +4,22 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // Local imports
-import { HorizontalSeparator } from './Layout.components';
+import { HorizontalSeparator, VerticalFlex } from './Layout.components';
 import { Title } from './Text.components';
 import { sizes } from '../styles';
 import { formatCurrency, StoreContext } from '../utilities';
 
-const BalanceContainer = styled.div``;
+const BalanceContainer = styled.div`
+  @media (min-width: ${sizes.tablet}) {
+    display: grid;
+    grid-area: balance;
+    align-self: center;
+  }
+  @media (min-width: ${sizes.tablet}) {
+    display: flex;
+    width: 100%;
+  }
+`;
 
 const Balance = styled.div`
   font-size: 50px;
@@ -23,9 +33,11 @@ export const AccountBalance = observer(() => {
 
   return (
     <BalanceContainer>
-      <Title>BALANCE</Title>
-      <HorizontalSeparator />
-      <Balance>{formatCurrency(currentBalance)}</Balance>
+      <VerticalFlex width={'100%'}>
+        <Title>BALANCE</Title>
+        <HorizontalSeparator />
+        <Balance>{formatCurrency(currentBalance)}</Balance>
+      </VerticalFlex>
     </BalanceContainer>
   );
 });

@@ -3,7 +3,7 @@ import { Select } from 'antd';
 import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 
 // Local imports
 import { ColorBadge, HorizontalSeparator } from './Layout.components';
@@ -15,9 +15,27 @@ import { StoreContext, formatCategory } from '../utilities';
 const Option = Select.Option;
 
 const CategoriesContainer = styled.div`
+  margin: 15px 0;
   width: 100%;
-  margin-bottom: 20px;
+  @media (min-width: ${sizes.tablet}) {
+    display: grid;
+    grid-area: categories;
+  }
+  @media (min-width: ${sizes.tablet}) {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+const PieChartContainer = styled.div<{ tablet: boolean }>`
+  display: ${(props) => (!props.tablet ? 'flex' : 'none')};
+  width: 100%;
+  justify-content: center;
+  @media (min-width: ${sizes.tablet}) {
+    display: ${(props) => (props.tablet ? 'flex' : 'none')};
+  }
   @media (min-width: ${sizes.desktop}) {
+    display: ${(props) => (!props.tablet ? 'flex' : 'none')};
   }
 `;
 
@@ -38,6 +56,9 @@ export const CategorySelector = observer(() => {
 
   return (
     <CategoriesContainer>
+      <PieChartContainer tablet={true}>
+        <CategoryPieChart data={data} />
+      </PieChartContainer>
       <Title>CATEGORIES</Title>
       <HorizontalSeparator />
       <Select
@@ -56,23 +77,32 @@ export const CategorySelector = observer(() => {
           );
         })}
       </Select>
-      <ResponsiveContainer width={300} height={275}>
-        <PieChart width={300} height={275}>
-          <Pie
-            data={data}
-            cx={150}
-            cy={150}
-            outerRadius={110}
-            fill="#8884d8"
-            dataKey="value"
-            onClick={(value) => console.log(value.name)}>
-            {data.map((cat, index) => (
-              <Cell key={index} fill={colors[index % colors.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-        </PieChart>
-      </ResponsiveContainer>
+      <PieChartContainer tablet={false}>
+        <CategoryPieChart data={data} />
+      </PieChartContainer>
     </CategoriesContainer>
   );
 });
+
+const CategoryPieChart: React.FunctionComponent<{ data: { name: string; value: number }[] }> = (
+  props,
+) => {
+  const { data } = props;
+  return (
+    <PieChart width={300} height={275}>
+      <Pie
+        data={data}
+        cx={150}
+        cy={150}
+        outerRadius={110}
+        fill="#8884d8"
+        dataKey="value"
+        onClick={(value) => console.log(value.name)}>
+        {data.map((cat, index) => (
+          <Cell key={index} fill={colors[index % colors.length]} />
+        ))}
+      </Pie>
+      <Tooltip />
+    </PieChart>
+  );
+};

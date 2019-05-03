@@ -18,7 +18,8 @@ export const HorizontalFlex = styled.div<{ align?: string }>`
   align-items: ${(props) => (props.align ? props.align : 'unset')};
 `;
 
-export const VerticalFlex = styled.div`
+export const VerticalFlex = styled.div<{ width?: string }>`
   display: flex;
   flex-direction: column;
+  width: ${(props) => (props.width ? props.width : 'inherit')};
 `;

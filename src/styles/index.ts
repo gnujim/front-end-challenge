@@ -1,12 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 
-import { lighterBlue, darkerBlue } from './Constants';
-
 export const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Heebo:800');
   
   html {
-    box-sizing: border-box;
   }
 
   body {
@@ -54,6 +51,7 @@ export const GlobalStyle = createGlobalStyle`
       width: 100%;
       .ant-calendar-picker-input {
         border-radius: 0;
+        margin-top: 10px;
         &:hover {
           border-color: #80a7f7;
         }
