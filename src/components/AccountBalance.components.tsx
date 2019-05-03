@@ -14,12 +14,12 @@ const Balance = styled.div`
 `;
 
 export const AccountBalance = observer(() => {
-  const { loading, currentBalance } = useContext(StoreContext);
+  const { currentBalance } = useContext(StoreContext);
 
   return (
     <BalanceContainer>
       <TitleBorder>BALANCE</TitleBorder>
-      {loading ? <p>...loading</p> : <Balance>{formatCurrency(currentBalance)}</Balance>}
+      <Balance>{formatCurrency(currentBalance)}</Balance>
     </BalanceContainer>
   );
 });

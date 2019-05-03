@@ -7,7 +7,7 @@ import styled from 'styled-components';
 // Local imports
 import { StoreContext } from '../utilities';
 
-// Get Option out of antd
+// Get Option out of antd Select
 const Option = Select.Option;
 
 const AccountContainer = styled.div`
@@ -15,16 +15,12 @@ const AccountContainer = styled.div`
 `;
 
 export const AccountSelector = observer(() => {
-  const { loading, allAccounts, setCurrentAccount } = useContext(StoreContext);
+  const { allAccounts, setCurrentAccount } = useContext(StoreContext);
 
   const handleChange = (value: string) => {
     console.log(value);
     setCurrentAccount(value);
   };
-
-  if (loading) {
-    return <p>...loading</p>;
-  }
 
   return (
     <AccountContainer>

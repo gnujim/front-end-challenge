@@ -70,7 +70,7 @@ const ListItemBalance = styled(ListItemText)<{ overdrawn: boolean }>`
 `;
 
 export const TransactionList = observer(() => {
-  const { loading, currentTransactions, toggleSortOrder, transAsc } = useContext(StoreContext);
+  const { currentTransactions, toggleSortOrder, transAsc } = useContext(StoreContext);
 
   return (
     <ListContainer>
@@ -84,34 +84,30 @@ export const TransactionList = observer(() => {
         <Title>BALANCE</Title>
       </ListHeader>
       <ListContent>
-        {loading ? (
-          <p>...loading</p>
-        ) : (
-          currentTransactions.map((transaction) => {
-            const {
-              transactionId,
-              transactionDate,
-              description,
-              category,
-              deposit,
-              amount,
-              runningBalance,
-            } = transaction;
-            return (
-              <ListItem key={transactionId}>
-                <ListItemText>{transactionDate}</ListItemText>
-                <ListItemTextWrapper>
-                  <ListItemText>{description}</ListItemText>
-                  <ListItemCategory>{formatCategory(category)}</ListItemCategory>
-                </ListItemTextWrapper>
-                <ListItemAmount deposit={!!deposit}>{formatCurrency(amount)}</ListItemAmount>
-                <ListItemBalance overdrawn={runningBalance < 0}>
-                  {formatCurrency(runningBalance)}
-                </ListItemBalance>
-              </ListItem>
-            );
-          })
-        )}
+        {currentTransactions.map((transaction) => {
+          const {
+            transactionId,
+            transactionDate,
+            description,
+            category,
+            deposit,
+            amount,
+            runningBalance,
+          } = transaction;
+          return (
+            <ListItem key={transactionId}>
+              <ListItemText>{transactionDate}</ListItemText>
+              <ListItemTextWrapper>
+                <ListItemText>{description}</ListItemText>
+                <ListItemCategory>{formatCategory(category)}</ListItemCategory>
+              </ListItemTextWrapper>
+              <ListItemAmount deposit={!!deposit}>{formatCurrency(amount)}</ListItemAmount>
+              <ListItemBalance overdrawn={runningBalance < 0}>
+                {formatCurrency(runningBalance)}
+              </ListItemBalance>
+            </ListItem>
+          );
+        })}
       </ListContent>
     </ListContainer>
   );
