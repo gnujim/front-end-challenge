@@ -18,7 +18,7 @@ const ListContainer = styled.div`
   @media (min-width: ${sizes.desktop}) {
     margin-top: 0;
     /* height not referencing parent */
-    height: 70vh;
+    height: 80vh;
   }
 `;
 
@@ -59,7 +59,8 @@ const ListContent = styled.div`
   margin-top: 10px;
   @media (min-width: ${sizes.desktop}) {
     overflow-y: scroll;
-    height: 85%;
+    /* TODO: FIX THIS HEIGHT */
+    height: 90%;
   }
 `;
 

@@ -25,11 +25,20 @@ export const GlobalStyles = createGlobalStyle`
         &:hover {
           border-color: #80a7f7;
         }
+        .ant-select-selection__choice__content {
+          display: flex;
+          align-items: center;
+        }
+        .ant-select-selection__choice__remove {
+          top: 0;
+        }
       }
     }
     .ant-select-dropdown {
       border-radius: 0;
       .select-option {
+        display: flex;
+        align-items: center;
         &:hover {
           background-color: #bed5ff;
         }

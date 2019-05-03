@@ -23,9 +23,9 @@ const ContentContainer = styled.div`
   }
   @media (min-width: ${sizes.desktop}) {
     box-shadow: #5c88e2 -14px 14px;
-    margin: 30px 10%;
+    margin: 30px 10% 60px 10%;
     padding: 20px;
-    height: 75vh;
+    /* min-height: 90vh; */
   }
 `;
 
@@ -45,7 +45,8 @@ const ContentSidebar = styled.div`
   }
   @media (min-width: ${sizes.desktop}) {
     grid-template-columns: unset;
-    grid-template-rows: 1fr 1fr 2fr;
+    display: flex;
+    flex-direction: column;
   }
 `;
 

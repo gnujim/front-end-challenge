@@ -18,6 +18,7 @@ import {
   AccountData,
   CategoryData,
 } from './Api.utils';
+import { colors } from '../styles';
 
 export class AppStore {
   // loading state of application
@@ -156,14 +157,14 @@ export class AppStore {
   }
 
   // get chosen categories with count
-  // TODO: add category colours
   get currentCategories() {
-    return this.allCategories.map((category) => {
+    return this.allCategories.map((category, index) => {
       return {
         category,
         count: this.transactionsInDateRange.filter((transaction) => {
           return transaction.category === category;
         }).length,
+        color: colors[index],
       };
     });
   }
