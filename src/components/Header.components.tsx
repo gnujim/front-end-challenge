@@ -4,28 +4,48 @@ import styled from 'styled-components';
 
 // Local imports
 import piggy from '../assets/piggy-bank.svg';
+import { sizes } from '../styles';
 
 const HeaderContainer = styled.div`
-  align-items: flex-end;
+  position: fixed;
+  top: 0;
   display: flex;
+  align-items: center;
+  justify-content: center;
   height: 80px;
-  padding: 0 50px;
   width: 100%;
+  background: #5a6ce3;
+  z-index: 99;
+  @media (min-width: ${sizes.desktop}) {
+    align-items: flex-end;
+    padding: 0 50px;
+  }
 `;
 
 const InstitutionName = styled.div`
   color: white;
   font-family: 'Heebo', serif;
   /* font-size: calc(13px + 3vmin); */
-  font-size: 38px;
   font-weight: 800;
   letter-spacing: 0;
-  line-height: 38px;
+  font-size: 24px;
+  line-height: 24px;
+  @media (min-width: ${sizes.tablet}) {
+    font-size: 32px;
+    line-height: 32px;
+  }
+  @media (min-width: ${sizes.desktop}) {
+    line-height: 38px;
+    font-size: 38px;
+  }
 `;
 
 const InstitutionLogo = styled.img`
-  height: 55px;
+  height: 42px;
   margin-right: 15px;
+  @media (min-width: ${sizes.desktop}) {
+    height: 55px;
+  }
 `;
 
 export const Header = () => {

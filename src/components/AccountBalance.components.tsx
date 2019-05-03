@@ -6,11 +6,15 @@ import styled from 'styled-components';
 // Local imports
 import { TitleBorder } from './Text.components';
 import { formatCurrency, StoreContext } from '../utilities';
+import { sizes } from '../styles';
 
 const BalanceContainer = styled.div``;
 
 const Balance = styled.div`
-  font-size: 60px;
+  font-size: 50px;
+  @media (min-width: ${sizes.desktop}) {
+    font-size: 60px;
+  }
 `;
 
 export const AccountBalance = observer(() => {

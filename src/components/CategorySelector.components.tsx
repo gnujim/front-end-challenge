@@ -7,12 +7,16 @@ import styled from 'styled-components';
 // Local imports
 import { TitleBorder } from './Text.components';
 import { StoreContext, formatCategory } from '../utilities';
+import { sizes } from '../styles';
 
 // Get Option out of antd Select
 const Option = Select.Option;
 
 const CategoriesContainer = styled.div`
   width: 100%;
+  margin-bottom: 20px;
+  @media (min-width: ${sizes.desktop}) {
+  }
 `;
 
 export const CategorySelector = observer(() => {
@@ -25,11 +29,10 @@ export const CategorySelector = observer(() => {
   return (
     <CategoriesContainer>
       <TitleBorder>CATEGORIES</TitleBorder>
-
       <Select
         className="category-select"
         mode="multiple"
-        style={{ width: '100%' }}
+        style={{ width: '100%', marginTop: '10px' }}
         allowClear={true}
         placeholder="Please Select"
         onChange={handleChange}>

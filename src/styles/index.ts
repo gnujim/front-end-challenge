@@ -9,6 +9,8 @@ export const GlobalStyles = createGlobalStyle`
     font-family: 'Open Sans Condensed', sans-serif;
     font-weight: 300;
     letter-spacing: .5px;
+    background: radial-gradient(circle, #5b8be2 40%, #5a5fe4 100%);
+    min-height: 100vh;
 
     /* Ant Design customized styling */
     .account-select, .category-select {
