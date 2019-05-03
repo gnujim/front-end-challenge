@@ -23,6 +23,7 @@ export const DateRange = observer(() => {
       <Title>DATE RANGE</Title>
       <HorizontalSeparator />
       <RangePicker
+        className="date-range-picker"
         defaultValue={dateRange}
         onChange={(dates) => {
           setDateRange(dates as [Moment, Moment]);
