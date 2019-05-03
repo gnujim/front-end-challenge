@@ -17,11 +17,11 @@ const ContentContainer = styled.div`
   background-color: ${white};
   display: flex;
   flex-direction: column;
-  margin: 80px 5px 10px 5px;
+  margin: 80px 5px 50px 5px;
   padding: 15px;
   z-index: 0;
   @media (min-width: ${sizes.tablet}) {
-    margin: 80px 10px 15px 10px;
+    margin: 80px 10px 30px 10px;
   }
   @media (min-width: ${sizes.desktop}) {
     box-shadow: ${shadowBlue} -14px 14px;
