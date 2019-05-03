@@ -8,8 +8,8 @@ import styled from 'styled-components';
 // Local imports
 import { HorizontalSeparator, VerticalFlex } from './Layout.components';
 import { Title } from './Text.components';
-import { StoreContext } from '../utilities';
 import { sizes } from '../styles';
+import { StoreContext } from '../utilities';
 
 // Get RangePicker out of antd DatePicker
 const { RangePicker } = DatePicker;

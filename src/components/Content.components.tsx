@@ -10,7 +10,7 @@ import { AccountSelector } from './AccountSelector.components';
 import { CategorySelector } from './CategorySelector.components';
 import { DateRange } from './DateRange.component';
 import { TransactionList } from './TransactionList.components';
-import { middleBlue, sizes, white } from '../styles';
+import { shadowBlue, sizes, white } from '../styles';
 import { StoreContext } from '../utilities';
 
 const ContentContainer = styled.div`
@@ -24,19 +24,17 @@ const ContentContainer = styled.div`
     margin: 80px 10px 15px 10px;
   }
   @media (min-width: ${sizes.desktop}) {
-    box-shadow: ${middleBlue} -14px 14px;
+    box-shadow: ${shadowBlue} -14px 14px;
     margin: 30px 10% 60px 10%;
-    padding: 20px;
-    /* min-height: 90vh; */
+    padding: 20px 20px 30px 20px;
   }
 `;
 
 const LoadingContainer = styled.div`
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
-  /* !!! */
-  height: 80vh;
+  min-height: 702px;
 `;
 
 const ContentMain = styled.div`
@@ -52,16 +50,16 @@ const ContentMain = styled.div`
 const ContentSidebar = styled.div`
   @media (min-width: ${sizes.tablet}) {
     display: grid;
+    grid-column-gap: 15px;
     grid-template-areas:
       'balance categories'
       'daterange categories';
-    grid-column-gap: 15px;
   }
   @media (min-width: ${sizes.desktop}) {
     display: flex;
     flex-direction: column;
-    width: 30%;
     margin-right: 20px;
+    width: 30%;
   }
 `;
 

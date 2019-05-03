@@ -2,13 +2,13 @@
 import { Select } from 'antd';
 import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
-import styled from 'styled-components';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
+import styled from 'styled-components';
 
 // Local imports
 import { ColorBadge, HorizontalSeparator } from './Layout.components';
 import { Title } from './Text.components';
-import { sizes, colors } from '../styles';
+import { sizes, colors, highlightBlue } from '../styles';
 import { StoreContext, formatCategory } from '../utilities';
 
 // Get Option out of antd Select
@@ -29,8 +29,8 @@ const CategoriesContainer = styled.div`
 
 const PieChartContainer = styled.div<{ tablet: boolean }>`
   display: ${(props) => (!props.tablet ? 'flex' : 'none')};
-  width: 100%;
   justify-content: center;
+  width: 100%;
   @media (min-width: ${sizes.tablet}) {
     display: ${(props) => (props.tablet ? 'flex' : 'none')};
   }
@@ -95,7 +95,7 @@ const CategoryPieChart: React.FunctionComponent<{ data: { name: string; value: n
         cx={150}
         cy={150}
         outerRadius={110}
-        fill="#8884d8"
+        fill={highlightBlue}
         dataKey="value"
         onClick={(value) => console.log(value.name)}>
         {data.map((cat, index) => (

@@ -6,11 +6,11 @@ import styled from 'styled-components';
 import { HorizontalFlex } from './Layout.components';
 import github from '../assets/github.png';
 import piggy from '../assets/piggy-bank.svg';
-import { sizes } from '../styles';
+import { sizes, headerBlue } from '../styles';
 
 const HeaderContainer = styled.div`
   align-items: center;
-  background: #5a6ce3;
+  background: ${headerBlue};
   display: flex;
   height: 80px;
   justify-content: center;

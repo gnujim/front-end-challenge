@@ -1,25 +1,23 @@
-// Third-part imports
+// Third-party imports
 import { observer } from 'mobx-react-lite';
 import moment from 'moment';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 // Local imports
-import { StoreContext, formatCurrency, formatCategory, Transaction } from '../utilities';
+import { ColorBadge, HorizontalSeparator } from './Layout.components';
 import { Title } from './Text.components';
 import arrow from '../assets/arrow.svg';
-import { sizes } from '../styles';
-import { ColorBadge, HorizontalSeparator } from './Layout.components';
+import { StoreContext, formatCurrency, formatCategory, Transaction } from '../utilities';
+import { sizes, green, red, shadowBlue } from '../styles';
 
-// TRANSACTION LIST
+// TRANSACTION LIST STYLES
 const ListContainer = styled.div`
   @media (min-width: ${sizes.tablet}) {
     margin-top: 15px;
   }
   @media (min-width: ${sizes.desktop}) {
     margin-top: 0;
-    /* height not referencing parent */
-    height: 80vh;
   }
 `;
 
@@ -32,19 +30,19 @@ const ListHeader = styled.div`
 
 const DateTitle = styled(Title)`
   @media (min-width: ${sizes.desktop}) {
-    transition: color 0.3s ease-in;
+    transition: color 0.2s ease-in-out;
     cursor: pointer;
     &:hover {
-      color: #5b8be2;
+      color: ${shadowBlue};
     }
   }
 `;
 
 const Arrow = styled.img<{ ascending: boolean }>`
-  margin: 0 0 4px 6px;
   height: 15px;
-  transition: transform 0.3s ease-in-out;
+  margin: 0 0 4px 6px;
   transform: ${(props) => (props.ascending ? `rotate(180deg)` : `rotate(0deg)`)};
+  transition: transform 0.3s ease-in-out;
 `;
 
 const ListTitle = styled(Title)`
@@ -61,27 +59,24 @@ const ListContent = styled.div`
   @media (min-width: ${sizes.tablet}) {
   }
   @media (min-width: ${sizes.desktop}) {
+    height: 65vh;
+    min-height: 600px;
     overflow-y: scroll;
-    /* TODO: FIX THIS HEIGHT */
-    height: 90%;
   }
 `;
 
-// TRANSACTION ROW
+// TRANSACTION ROW STYLES
 const ListItem = styled.div`
   font-size: 18px;
   display: grid;
-  grid-template-columns: 3fr 1fr;
-  grid-template-rows: auto;
   grid-template-areas:
     'date date date amount'
     'description description description balance';
-
   @media (min-width: ${sizes.tablet}) {
+    font-size: 22px;
+    grid-template-areas: unset;
     grid-template-columns: 1fr 3fr 1fr 1fr;
     grid-template-rows: unset;
-    grid-template-areas: unset;
-    font-size: 22px;
   }
 `;
 
@@ -96,7 +91,7 @@ const ListItemDate = styled.div`
     font-size: 18px;
     grid-area: unset;
     line-height: 22px;
-    align-self: center;
+    padding-top: 4px;
   }
 `;
 
@@ -110,40 +105,38 @@ const ListItemDescriptionWrapper = styled.div`
 `;
 
 const ListMobileTitle = styled(Title)`
-  font-size: 12px;
   color: black;
+  font-size: 12px;
   @media (min-width: ${sizes.tablet}) {
     display: none;
   }
 `;
 
 const ListItemCategory = styled.div`
-  color: #5a5a5a;
-  font-size: 14px;
-  display: flex;
   align-items: center;
+  color: #5a5a5a;
+  display: flex;
+  font-size: 14px;
   @media (min-width: ${sizes.tablet}) {
     font-size: 18px;
   }
 `;
 
 const ListItemAmount = styled(ListItemText)<{ deposit: boolean }>`
-  color: ${(props) => (props.deposit ? `#47af4f` : `black`)};
-  text-align: end;
+  color: ${(props) => (props.deposit ? green : `black`)};
   grid-area: amount;
+  text-align: end;
   @media (min-width: ${sizes.tablet}) {
-    align-self: center;
     grid-area: unset;
     text-align: unset;
   }
 `;
 
 const ListItemBalance = styled(ListItemText)<{ overdrawn: boolean }>`
-  color: ${(props) => (props.overdrawn ? `#f32d2d` : `black`)};
-  text-align: end;
+  color: ${(props) => (props.overdrawn ? red : `black`)};
   grid-area: balance;
+  text-align: end;
   @media (min-width: ${sizes.tablet}) {
-    align-self: center;
     grid-area: unset;
     text-align: unset;
   }
@@ -170,7 +163,7 @@ export const TransactionList = observer(() => {
           const cat = currentCategories.find(
             (category) => category.category === transaction.category,
           );
-          const categoryColor = cat ? cat.color : '#000';
+          const categoryColor = cat ? cat.color : 'black';
           return (
             <React.Fragment key={transaction.transactionId}>
               <TransactionRow transaction={transaction} categoryColor={categoryColor} />

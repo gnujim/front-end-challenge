@@ -9,7 +9,6 @@ import { GlobalStyle, sizes } from './styles';
 
 const AppContainer = styled.div`
   color: black;
-  height: 100%;
   width: 100%;
   @media (min-width: ${sizes.tablet}) {
     font-size: 22px;

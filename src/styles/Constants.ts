@@ -4,17 +4,18 @@
 
 export const white = '#fdfeff';
 export const lighterBlue = '#5b8be2';
-export const middleBlue = '#5c88e2';
 export const darkerBlue = '#5a5fe4';
 export const highlightBlue = '#bed5ff';
+export const shadowBlue = '#5c88e2';
 export const borderBlue = '#80a7f7';
-export const green = '';
-export const red = '';
+export const headerBlue = '#5a6ce3';
+export const green = '#47af4f';
+export const red = '#f32d2d';
+export const gray = '#6f6f6f';
 
 export const sizes = {
   desktop: '1200px',
   tablet: '768px',
-  phone: 576,
 };
 
 export const colors = [

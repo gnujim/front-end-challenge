@@ -2,15 +2,11 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Heebo:800');
-  
-  html {
-  }
 
   body {
     background: radial-gradient(circle, #5b8be2 40%, #5a5fe4 100%);
     font-family: 'Open Sans Condensed', sans-serif;
     font-weight: 300;
-    height: 100vh;
     letter-spacing: .5px;
     margin: 0;
     padding: 0;
@@ -34,8 +30,8 @@ export const GlobalStyle = createGlobalStyle`
     .ant-select-dropdown {
       border-radius: 0;
       .select-option {
-        display: flex;
         align-items: center;
+        display: flex;
         &:hover {
           background-color: #bed5ff;
         }

@@ -11,9 +11,9 @@ import { formatCurrency, StoreContext } from '../utilities';
 
 const BalanceContainer = styled.div`
   @media (min-width: ${sizes.tablet}) {
+    align-self: center;
     display: grid;
     grid-area: balance;
-    align-self: center;
   }
   @media (min-width: ${sizes.tablet}) {
     display: flex;
