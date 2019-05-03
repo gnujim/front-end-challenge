@@ -69,13 +69,10 @@ export class AppStore {
     // const data = await getTransactions();
     const data = TransactionData;
     this.apiData.transactions = data;
-    // set default date range to earliest and latest transaction date from data
-    this.defaultDateRange = [
-      moment(data.earliestTransactionDate),
-      moment(data.latestTransactionDate),
-    ];
-    // set initial date range to earliest and latest transaction date from data
-    this.dateRange = [moment(data.earliestTransactionDate), moment(data.latestTransactionDate)];
+    // set default date range from earliest transaction date to now
+    this.defaultDateRange = [moment(data.earliestTransactionDate), moment()];
+    // set initial date range from earliest transcation date to now
+    this.dateRange = [moment(data.earliestTransactionDate), moment()];
     // NOTE: coerse transaction.category into a string, was running into issues formatting without this
     this.allTransactions = data.transactions.map((transaction) => {
       return { ...transaction, category: `${transaction.category || ''}` };
@@ -128,11 +125,11 @@ export class AppStore {
     });
   }
 
-  // filter for transactions in current date range
+  // filter for transactions in current date range (inclusive)
   get transactionsInDateRange() {
     return this.transactionsForAccount.filter((transaction) => {
       const [start, end] = this.dateRange;
-      const isInRange = moment(transaction.transactionDate).isBetween(start, end);
+      const isInRange = moment(transaction.transactionDate).isBetween(start, end, 'days', '[]');
       return isInRange;
     });
   }
