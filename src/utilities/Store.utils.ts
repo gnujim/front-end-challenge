@@ -15,7 +15,7 @@ import {
   CategoriesResponse,
   getCategories,
 } from './Api.utils';
-import { colors } from '../styles';
+import { categoryColors } from '../styles';
 
 export class AppStore {
   // loading state of application
@@ -150,7 +150,7 @@ export class AppStore {
         count: this.transactionsInDateRange.filter((transaction) => {
           return transaction.category === category;
         }).length,
-        color: colors[index],
+        color: categoryColors[index],
       };
     });
   }

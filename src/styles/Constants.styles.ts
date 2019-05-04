@@ -2,23 +2,25 @@
  * Style constants
  **/
 
-export const white = '#fdfeff';
-export const lighterBlue = '#5b8be2';
-export const darkerBlue = '#5a5fe4';
-export const highlightBlue = '#bed5ff';
-export const shadowBlue = '#5c88e2';
-export const borderBlue = '#80a7f7';
-export const headerBlue = '#5a6ce3';
-export const green = '#47af4f';
-export const red = '#f32d2d';
-export const gray = '#6f6f6f';
+export const colors = {
+  white: '#fdfeff',
+  lighterBlue: '#5b8be2',
+  darkerBlue: '#5a5fe4',
+  highlightBlue: '#bed5ff',
+  shadowBlue: '#5c88e2',
+  borderBlue: '#80a7f7',
+  headerBlue: '#5a6ce3',
+  green: '#47af4f',
+  red: '#f32d2d',
+  gray: '#6f6f6f',
+};
 
 export const sizes = {
   desktop: '1200px',
   tablet: '768px',
 };
 
-export const colors = [
+export const categoryColors = [
   '#64ceaa',
   '#75c8a4',
   '#83c19e',

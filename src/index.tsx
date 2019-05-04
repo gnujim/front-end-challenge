@@ -12,6 +12,7 @@ ReactDOM.render(
     <App />
   </StoreContext.Provider>,
   document.getElementById('root'),
+  // react callback initializing store after render
   () => store.init(),
 );
 

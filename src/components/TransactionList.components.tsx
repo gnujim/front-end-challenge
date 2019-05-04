@@ -9,7 +9,7 @@ import { ColorBadge, HorizontalSeparator } from './Layout.components';
 import { Title } from './Text.components';
 import arrow from '../assets/arrow.svg';
 import { StoreContext, formatCurrency, formatCategory, Transaction } from '../utilities';
-import { sizes, green, red, shadowBlue } from '../styles';
+import { sizes, colors } from '../styles';
 
 // TRANSACTION LIST STYLES
 const ListContainer = styled.div`
@@ -34,7 +34,7 @@ const DateTitle = styled(Title)`
     transition: color 0.2s ease-in-out;
     cursor: pointer;
     &:hover {
-      color: ${shadowBlue};
+      color: ${colors.shadowBlue};
     }
   }
 `;
@@ -115,16 +115,16 @@ const ListMobileTitle = styled(Title)`
 
 const ListItemCategory = styled.div`
   align-items: center;
-  color: #5a5a5a;
+  color: #7a7a7a;
   display: flex;
   font-size: 14px;
   @media (min-width: ${sizes.tablet}) {
-    font-size: 18px;
+    font-size: 16px;
   }
 `;
 
 const ListItemAmount = styled(ListItemText)<{ deposit: boolean }>`
-  color: ${(props) => (props.deposit ? green : `black`)};
+  color: ${(props) => (props.deposit ? colors.green : `black`)};
   grid-area: amount;
   text-align: end;
   @media (min-width: ${sizes.tablet}) {
@@ -134,7 +134,7 @@ const ListItemAmount = styled(ListItemText)<{ deposit: boolean }>`
 `;
 
 const ListItemBalance = styled(ListItemText)<{ overdrawn: boolean }>`
-  color: ${(props) => (props.overdrawn ? red : `black`)};
+  color: ${(props) => (props.overdrawn ? colors.red : `black`)};
   grid-area: balance;
   text-align: end;
   @media (min-width: ${sizes.tablet}) {

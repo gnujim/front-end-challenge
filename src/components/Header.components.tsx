@@ -6,11 +6,11 @@ import styled from 'styled-components';
 import { HorizontalFlex } from './Layout.components';
 import github from '../assets/github.png';
 import piggy from '../assets/piggy-bank.svg';
-import { sizes, headerBlue, borderBlue } from '../styles';
+import { sizes, colors } from '../styles';
 
 const HeaderContainer = styled.div`
   align-items: center;
-  background: ${headerBlue};
+  background: ${colors.headerBlue};
   display: flex;
   height: 80px;
   justify-content: center;
@@ -67,7 +67,7 @@ const GithubLink = styled.a`
     width: 41px;
     transition: all 0.2s ease-in-out;
     &:hover {
-      background-color: ${borderBlue};
+      background-color: ${colors.borderBlue};
     }
   }
 `;

@@ -8,7 +8,7 @@ import styled from 'styled-components';
 // Local imports
 import { ColorBadge, HorizontalSeparator } from './Layout.components';
 import { Title } from './Text.components';
-import { sizes, colors, highlightBlue } from '../styles';
+import { sizes, categoryColors, colors } from '../styles';
 import { StoreContext, formatCategory } from '../utilities';
 
 // Get Option out of antd Select
@@ -90,9 +90,19 @@ const CategoryPieChart: React.FunctionComponent<{ data: { name: string; value: n
   const { data } = props;
   return (
     <PieChart width={300} height={275}>
-      <Pie data={data} cx={150} cy={150} outerRadius={110} fill={highlightBlue} dataKey="value">
-        {data.map((cat, index) => (
-          <Cell key={index} fill={colors[index % colors.length]} />
+      <Pie
+        data={data}
+        cx={150}
+        cy={150}
+        outerRadius={110}
+        fill={colors.highlightBlue}
+        dataKey="value"
+        onClick={() => {
+          // required to show amount label on mobile touch
+          return null;
+        }}>
+        {data.map((_, index) => (
+          <Cell key={index} fill={categoryColors[index % categoryColors.length]} />
         ))}
       </Pie>
       <Tooltip />

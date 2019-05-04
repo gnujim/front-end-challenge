@@ -10,11 +10,11 @@ import { AccountSelector } from './AccountSelector.components';
 import { CategorySelector } from './CategorySelector.components';
 import { DateRange } from './DateRange.component';
 import { TransactionList } from './TransactionList.components';
-import { shadowBlue, sizes, white } from '../styles';
+import { colors, sizes } from '../styles';
 import { StoreContext } from '../utilities';
 
 const ContentContainer = styled.div`
-  background-color: ${white};
+  background-color: ${colors.white};
   display: flex;
   flex-direction: column;
   margin: 80px 5px 30px 5px;
@@ -24,7 +24,7 @@ const ContentContainer = styled.div`
     margin: 80px 10px 30px 10px;
   }
   @media (min-width: ${sizes.desktop}) {
-    box-shadow: ${shadowBlue} -14px 14px;
+    box-shadow: ${colors.shadowBlue} -14px 14px;
     margin: 30px 10% 60px 10%;
     padding: 20px 20px 30px 20px;
   }
@@ -72,7 +72,7 @@ export const Content = observer(() => {
           <Spin size="large" />
         </LoadingContainer>
       ) : (
-        <>
+        <React.Fragment>
           <AccountSelector />
           <ContentMain>
             <ContentSidebar>
@@ -82,7 +82,7 @@ export const Content = observer(() => {
             </ContentSidebar>
             <TransactionList />
           </ContentMain>
-        </>
+        </React.Fragment>
       )}
     </ContentContainer>
   );
