@@ -17,7 +17,7 @@ const ContentContainer = styled.div`
   background-color: ${white};
   display: flex;
   flex-direction: column;
-  margin: 80px 5px 50px 5px;
+  margin: 80px 5px 30px 5px;
   padding: 15px;
   z-index: 0;
   @media (min-width: ${sizes.tablet}) {
